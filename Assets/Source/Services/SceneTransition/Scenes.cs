@@ -1,4 +1,4 @@
-﻿namespace UGF.Services.SceneManagement
+﻿namespace Source.Services.SceneTransition
 {
     public enum Scenes
     {
