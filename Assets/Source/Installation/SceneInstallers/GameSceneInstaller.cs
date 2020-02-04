@@ -28,6 +28,7 @@ namespace Source.Installation.SceneInstallers
             Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingle().NonLazy();
 
             Container.BindInterfacesAndSelfTo<EntitySpawner>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerSpawningController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FloorSpawningController>().AsSingle().NonLazy();
         }
     }

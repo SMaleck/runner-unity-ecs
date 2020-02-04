@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Source.Features.EntitySpawning
+namespace Source.Features.EntitySpawning
 {
     public interface IPlayerSpawner
     {

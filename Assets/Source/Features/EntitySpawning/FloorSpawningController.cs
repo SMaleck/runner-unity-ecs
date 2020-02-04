@@ -2,10 +2,11 @@
 using Source.Features.ScreenSize;
 using UGF.Util.UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Features.EntitySpawning
 {
-    public class FloorSpawningController : AbstractDisposable
+    public class FloorSpawningController : AbstractDisposable, IInitializable
     {
         private readonly IFloorSpawner _floorSpawner;
         private readonly ScreenSizeModel _screenSizeModel;
@@ -29,7 +30,10 @@ namespace Source.Features.EntitySpawning
                 .EntityMesh
                 .bounds
                 .size;
+        }
 
+        public void Initialize()
+        {
             FillFloor();
         }
 

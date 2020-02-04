@@ -34,6 +34,8 @@ namespace Source.Features.UiScreens
             _startButton.OnClickAsObservable()
                 .Subscribe(_ => _sceneTransitionService.ToGame())
                 .AddTo(Disposer);
+
+            Localize();
         }
 
         public void Localize()

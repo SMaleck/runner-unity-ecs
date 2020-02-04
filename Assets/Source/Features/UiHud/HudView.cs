@@ -2,7 +2,6 @@
 using TMPro;
 using UGF.Services.Localization;
 using UGF.Views;
-using UGF.Views.Mediation;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,16 +19,13 @@ namespace Source.Features.Hud
         [Header("Buttons")]
         [SerializeField] private Button _resetButton;
         [SerializeField] private TextMeshProUGUI _resetButtonText;
-        
-        private IClosableViewMediator _closableViewMediator;
+
         private ISceneTransitionService _sceneTransitionService;
 
         [Inject]
         private void Inject(
-            IClosableViewMediator closableViewMediator,
             ISceneTransitionService sceneTransitionService)
         {
-            _closableViewMediator = closableViewMediator;
             _sceneTransitionService = sceneTransitionService;
         }
 
@@ -38,6 +34,8 @@ namespace Source.Features.Hud
             _resetButton.OnClickAsObservable()
                 .Subscribe(_ => _sceneTransitionService.ToGame())
                 .AddTo(Disposer);
+
+            Localize();
         }
 
         public void Localize()
