@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6a87774ac9899c44808462d471f8ce1, type: 3}
+  m_Name: DataInstaller
+  m_EditorClassIdentifier: 
+  _entityConfig: {fileID: 11400000, guid: c375a705fc3e2b24da580daf26e2b842, type: 2}
+  _viewPrefabConfig: {fileID: 11400000, guid: 4b192d77c6fb58f44ad949ee8db46eed, type: 2}
+  _audioClipsConfig: {fileID: 11400000, guid: cb908933b822f0a4c8fc7f8e41cbf078, type: 2}
