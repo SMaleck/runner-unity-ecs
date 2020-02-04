@@ -6,7 +6,6 @@ namespace UGF.Services.SceneManagement
     {
         IOptimizedObservable<Unit> OnSceneLoadStarted { get; }
 
-        void ToTitle();
-        void ToGame();
+        void ToScene(string sceneName);
     }
 }

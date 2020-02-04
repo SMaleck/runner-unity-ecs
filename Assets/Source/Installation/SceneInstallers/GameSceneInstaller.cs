@@ -1,5 +1,5 @@
 ﻿using Source.Features.EntitySpawning;
-using Source.Features.HelloWorld;
+using Source.Features.Hud;
 using Source.Features.ScreenSize;
 using Source.Initialization;
 using UGF.Installation;
@@ -22,8 +22,7 @@ namespace Source.Installation.SceneInstallers
             Container.BindInterfacesAndSelfTo<ClosableViewMediator>().AsSingle().NonLazy();
             Container.BindFactory<IClosableView, ClosableViewController, ClosableViewController.Factory>();
 
-            Container.BindPrefabFactory<HelloWorldHudView, HelloWorldHudView.Factory>();
-            Container.BindPrefabFactory<HelloWorldGameView, HelloWorldGameView.Factory>();
+            Container.BindPrefabFactory<HudView, HudView.Factory>();
 
             Container.BindInterfacesAndSelfTo<ScreenSizeModel>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingle().NonLazy();

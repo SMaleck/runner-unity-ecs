@@ -9,9 +9,19 @@
             TextRepo.SetLanguage(language);
         }
 
-        public static string HelloWorld()
+        public static string ApplicationName()
         {
-            return TextRepo.GetText(TextKey.HelloWorld);
+            return TextRepo.GetText(TextKey.ApplicationName);
+        }
+
+        public static string Play()
+        {
+            return TextRepo.GetText(TextKey.Play);
+        }
+
+        public static string Restart()
+        {
+            return TextRepo.GetText(TextKey.Restart);
         }
     }
 }

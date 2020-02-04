@@ -1,4 +1,4 @@
-﻿using Source.Features.HelloWorld;
+﻿using Source.Features.UiScreens;
 using Source.Initialization;
 using UGF.Installation;
 using UGF.Util;
@@ -15,7 +15,7 @@ namespace Source.Installation.SceneInstallers
             Container.BindInterfacesAndSelfTo<ClosableViewMediator>().AsSingle().NonLazy();
             Container.BindFactory<IClosableView, ClosableViewController, ClosableViewController.Factory>();
 
-            Container.BindPrefabFactory<HelloWorldTitleView, HelloWorldTitleView.Factory>();
+            Container.BindPrefabFactory<TitleMenuView, TitleMenuView.Factory>();
         }
     }
 }

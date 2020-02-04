@@ -1,4 +1,5 @@
-﻿using Source.Features.HelloWorld;
+﻿using Source.Features.Hud;
+using Source.Features.UiScreens;
 using UnityEngine;
 
 namespace Source.Installation.Config
@@ -6,13 +7,10 @@ namespace Source.Installation.Config
     [CreateAssetMenu(fileName = nameof(ViewPrefabConfig), menuName = Constants.UMenuRoot + nameof(ViewPrefabConfig))]
     public class ViewPrefabConfig : ScriptableObject
     {
-        [SerializeField] private HelloWorldTitleView _helloWorldTitleViewPrefab;
-        public HelloWorldTitleView HelloWorldTitleViewPrefab => _helloWorldTitleViewPrefab;
+        [SerializeField] private TitleMenuView _titleMenuViewPrefab;
+        public TitleMenuView TitleMenuViewPrefab => _titleMenuViewPrefab;
 
-        [SerializeField] private HelloWorldHudView _helloWorldHudViewPrefab;
-        public HelloWorldHudView HelloWorldHudViewPrefab => _helloWorldHudViewPrefab;
-
-        [SerializeField] private HelloWorldGameView _helloWorldGameViewPrefab;
-        public HelloWorldGameView HelloWorldGameViewPrefab => _helloWorldGameViewPrefab;
+        [SerializeField] private HudView _hudViewPrefab;
+        public HudView HudViewPrefab => _hudViewPrefab;
     }
 }

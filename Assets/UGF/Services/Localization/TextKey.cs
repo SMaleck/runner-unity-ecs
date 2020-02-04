@@ -2,6 +2,8 @@
 {
     public enum TextKey
     {
-        HelloWorld
+        ApplicationName,
+        Play,
+        Restart
     }
 }

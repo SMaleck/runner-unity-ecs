@@ -57,12 +57,16 @@ namespace UGF.Services.Localization
 
         private static Dictionary<TextKey, string> _textsEN = new Dictionary<TextKey, string>
         {
-            { TextKey.HelloWorld, "Hello World!"}
+            { TextKey.ApplicationName, "Runner in Unity ECS"},
+            { TextKey.Play, "Play!"},
+            { TextKey.Restart, "Restart"}
         };
 
         private static Dictionary<TextKey, string> _textsDE = new Dictionary<TextKey, string>
         {
-            { TextKey.HelloWorld, "Hallo Welt!"}
+            { TextKey.ApplicationName, "Runner in Unity ECS"},
+            { TextKey.Play, "Spielen!"},
+            { TextKey.Restart, "Neustart"}
         };
     }
 }

@@ -1,7 +1,6 @@
-﻿using Source.Features.HelloWorld;
+﻿using Source.Features.Hud;
 using Source.Installation.Config;
 using UGF.Initialization;
-using UGF.Views.Mediation;
 using Zenject;
 
 namespace Source.Initialization
@@ -9,8 +8,7 @@ namespace Source.Initialization
     public class GameSceneInitializer : AbstractSceneInitializer
     {
         [Inject] private readonly ViewPrefabConfig _viewPrefabConfig;
-        [Inject] private readonly HelloWorldHudView.Factory _helloWorldHudViewFactory;
-        [Inject] private readonly HelloWorldGameView.Factory _helloWorldGameViewFactory;
+        [Inject] private readonly HudView.Factory _hudViewFactory;
 
         public override void Initialize()
         {
@@ -19,11 +17,8 @@ namespace Source.Initialization
 
         private void InitViews()
         {
-            var helloWorldHudView = _helloWorldHudViewFactory.Create(_viewPrefabConfig.HelloWorldHudViewPrefab);
-            SetupView(helloWorldHudView);
-
-            var helloWorldGameView = _helloWorldGameViewFactory.Create(_viewPrefabConfig.HelloWorldGameViewPrefab);
-            SetupClosableView(helloWorldGameView, ClosableViewType.HelloWorld);
+            var hudView = _hudViewFactory.Create(_viewPrefabConfig.HudViewPrefab);
+            SetupView(hudView);
         }
     }
 }

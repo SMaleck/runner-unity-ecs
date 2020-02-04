@@ -1,16 +1,16 @@
-﻿using UGF.Initialization;
-using UGF.Services.SceneManagement;
+﻿using Source.Services.SceneTransition;
+using UGF.Initialization;
 using Zenject;
 
 namespace Source.Initialization
 {
     public class InitSceneInitializer : ISceneInitializer
     {
-        [Inject] private readonly ISceneManagementService _sceneManagementService;
+        [Inject] private readonly ISceneTransitionService _sceneTransitionService;
 
         public void Initialize()
         {
-            _sceneManagementService.ToTitle();
+            _sceneTransitionService.ToTitle();
         }
     }
 }

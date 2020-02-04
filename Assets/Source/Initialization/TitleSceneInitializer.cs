@@ -1,4 +1,4 @@
-﻿using Source.Features.HelloWorld;
+﻿using Source.Features.UiScreens;
 using Source.Installation.Config;
 using UGF.Initialization;
 using Zenject;
@@ -8,12 +8,12 @@ namespace Source.Initialization
     public class TitleSceneInitializer : AbstractSceneInitializer
     {
         [Inject] private readonly ViewPrefabConfig _viewPrefabConfig;
-        [Inject] private readonly HelloWorldTitleView.Factory _helloWorldTitleViewFactory;
+        [Inject] private readonly TitleMenuView.Factory _titleMenuViewFactory;
 
         public override void Initialize()
         {
-            var helloWorldTitleView = _helloWorldTitleViewFactory.Create(_viewPrefabConfig.HelloWorldTitleViewPrefab);
-            SetupView(helloWorldTitleView);
+            var titleMenuView = _titleMenuViewFactory.Create(_viewPrefabConfig.TitleMenuViewPrefab);
+            SetupView(titleMenuView);
         }
     }
 }
