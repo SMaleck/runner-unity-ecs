@@ -5,7 +5,7 @@ namespace Source.Features.ScreenSize
 {
     public class ScreenSizeModel : AbstractDisposable
     {
-        private readonly Camera _sceneCamera;
+        private readonly UnityEngine.Camera _sceneCamera;
 
         public float WidthUnits { get; private set; }
         public float HeightUnits { get; private set; }

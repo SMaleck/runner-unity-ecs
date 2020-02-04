@@ -1,6 +1,7 @@
-﻿using Source.Entities.Config;
+﻿using Source.Entities.Components;
+using Source.Entities.Config;
 using System.Collections.Generic;
-using Source.Entities.Components;
+using Source.Entities.Components.Tags;
 using UGF.Util.UniRx;
 using Unity.Collections;
 using Unity.Entities;
@@ -24,6 +25,7 @@ namespace Source.Features.EntitySpawning
             _entityArchetypes = new Dictionary<EntityType, EntityArchetype>();
 
             var playerArchetype = EntityManager.CreateArchetype(
+                typeof(PlayerTag),
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(Rotation),
@@ -51,7 +53,7 @@ namespace Source.Features.EntitySpawning
         {
             var entity = CreateEntityAt(EntityType.Player, position);
 
-            EntityManager.SetComponentData(entity, new MoveSpeed{ Value = 2 });
+            EntityManager.SetComponentData(entity, new MoveSpeed { Value = 2 });
             EntityManager.SetComponentData(entity, new MoveDirection { Value = new float3(1, 0, 0) });
         }
 

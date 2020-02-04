@@ -1,4 +1,6 @@
-﻿using Source.Features.EntitySpawning;
+﻿using Source.Features.Camera;
+using Source.Features.DataBridge;
+using Source.Features.EntitySpawning;
 using Source.Features.Hud;
 using Source.Features.ScreenSize;
 using Source.Initialization;
@@ -15,6 +17,8 @@ namespace Source.Installation.SceneInstallers
 
         protected override void InstallSceneBindings()
         {
+            Blackboard.Reset();
+
             Container.BindInstance(_sceneCamera);
 
             Container.BindInterfacesAndSelfTo<GameSceneInitializer>().AsSingle().NonLazy();
@@ -24,6 +28,7 @@ namespace Source.Installation.SceneInstallers
 
             Container.BindPrefabFactory<HudView, HudView.Factory>();
 
+            Container.BindInterfacesAndSelfTo<GameCamera>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ScreenSizeModel>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingle().NonLazy();
 

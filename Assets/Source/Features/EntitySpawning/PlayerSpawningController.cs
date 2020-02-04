@@ -1,4 +1,5 @@
 ﻿using Source.Entities.Config;
+using Source.Features.DataBridge;
 using Source.Features.ScreenSize;
 using UnityEngine;
 using Zenject;
@@ -35,9 +36,13 @@ namespace Source.Features.EntitySpawning
 
             var bottomLeftCorner = _screenSizeController.GetBottomLeftCorner();
 
-            _playerSpawner.SpawnPlayerAt(new Vector3(
+            var spawnPosition = new Vector3(
                 bottomLeftCorner.x + playerSize.x,
-                bottomLeftCorner.y + floorTileSize.y + playerSize.y / 2));
+                bottomLeftCorner.y + floorTileSize.y + playerSize.y / 2);
+
+            _playerSpawner.SpawnPlayerAt(spawnPosition);
+
+            Blackboard.Set(BlackboardEntryId.PlayerSpawnPosition, spawnPosition);
         }
     }
 }
