@@ -1,7 +1,10 @@
 ﻿using Source.Entities.Config;
 using System.Collections.Generic;
+using Source.Entities.Components;
 using UGF.Util.UniRx;
+using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
@@ -24,7 +27,9 @@ namespace Source.Features.EntitySpawning
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(Rotation),
-                typeof(RenderMesh));
+                typeof(RenderMesh),
+                typeof(MoveSpeed),
+                typeof(MoveDirection));
             _entityArchetypes.Add(EntityType.Player, playerArchetype);
 
             var floorArchetype = EntityManager.CreateArchetype(
@@ -46,14 +51,19 @@ namespace Source.Features.EntitySpawning
         {
             var entity = CreateEntityAt(EntityType.Player, position);
 
-            EntityManager.Instantiate(entity);
+            EntityManager.SetComponentData(entity, new MoveSpeed{ Value = 2 });
+            EntityManager.SetComponentData(entity, new MoveDirection { Value = new float3(1, 0, 0) });
         }
 
         public void SpawnFloorTileAt(Vector3 position)
         {
-            var entity = CreateEntityAt(EntityType.Floor, position);
+            CreateEntityAt(EntityType.Floor, position);
+        }
 
-            EntityManager.Instantiate(entity);
+        public void SpawnFloorTilesAt(Vector3[] positions)
+        {
+            var entities = CreateEntitiesAt(EntityType.Floor, positions);
+            entities.Dispose();
         }
 
         private Entity CreateEntityAt(
@@ -67,6 +77,23 @@ namespace Source.Features.EntitySpawning
             EntityManager.SetSharedComponentData(entity, CreateRenderMeshFor(entityType));
 
             return entity;
+        }
+
+        private NativeArray<Entity> CreateEntitiesAt(
+            EntityType entityType,
+            Vector3[] positions)
+        {
+            var archetype = _entityArchetypes[entityType];
+            var entities = new NativeArray<Entity>(positions.Length, Allocator.Temp);
+            EntityManager.CreateEntity(archetype, entities);
+
+            for (var i = 0; i < positions.Length; i++)
+            {
+                EntityManager.SetComponentData(entities[i], new Translation { Value = positions[i] });
+                EntityManager.SetSharedComponentData(entities[i], CreateRenderMeshFor(entityType));
+            }
+
+            return entities;
         }
 
         private RenderMesh CreateRenderMeshFor(EntityType entityType)

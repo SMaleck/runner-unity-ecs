@@ -3,7 +3,6 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
-using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace Source.Entities.Systems
@@ -11,16 +10,16 @@ namespace Source.Entities.Systems
     public class MovementSystem : JobComponentSystem
     {
         [BurstCompile]
-        struct MovementSystemJob : IJobForEach<Translation, Rotation, MoveSpeed>
+        struct MovementSystemJob : IJobForEach<Translation, MoveSpeed, MoveDirection>
         {
             public float DeltaTime;
 
             public void Execute(
-                ref Translation translation, 
-                [ReadOnly] ref Rotation rotation, 
-                [ReadOnly] ref MoveSpeed moveSpeed)
+                ref Translation translation,
+                [ReadOnly] ref MoveSpeed moveSpeed,
+                [ReadOnly] ref MoveDirection moveDirection)
             {
-                translation.Value += DeltaTime * moveSpeed.Value * math.forward(rotation.Value);
+                translation.Value += DeltaTime * moveSpeed.Value * moveDirection.Value;
             }
         }
 

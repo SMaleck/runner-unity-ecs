@@ -1,5 +1,6 @@
 ﻿using Source.Entities.Config;
 using Source.Features.ScreenSize;
+using System;
 using UGF.Util.UniRx;
 using UnityEngine;
 using Zenject;
@@ -43,7 +44,10 @@ namespace Source.Features.EntitySpawning
                 FloorTileHalfSizeX,
                 FloorTileHalfSizeY);
 
-            var desiredTileCount = _screenSizeModel.WidthUnits / _floorTileSize.x;
+            var desiredTileCount = (int)Math.Ceiling(_screenSizeModel.WidthUnits / _floorTileSize.x);
+
+            UGF.Logger.Log($"Creating {desiredTileCount} floor tiles at start");
+
             for (var i = 0; i < desiredTileCount; i++)
             {
                 var sizeOffset = i * _floorTileSize.x;
