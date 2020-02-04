@@ -1,85 +1,73 @@
-﻿using System;
+﻿using Assets.Source.Features.EntitySpawning;
 using Source.Entities.Config;
+using System.Collections.Generic;
 using UGF.Util.UniRx;
-using UniRx;
 using Unity.Entities;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
-using Zenject;
 
 namespace Source.Features.EntitySpawning
 {
-    public class EntitySpawner : AbstractDisposable,  IInitializable
+    public class EntitySpawner : AbstractDisposable, IPlayerSpawner, IFloorSpawner
     {
         private readonly EntityConfig _entityConfig;
-        private EntityManager EntityManager => World.DefaultGameObjectInjectionWorld.EntityManager;
+        private readonly Dictionary<EntityType, EntityArchetype> _entityArchetypes;
 
-        private readonly EntityArchetype _playerArchetype;
-        private readonly EntityArchetype _floorArchetype;
-        private readonly EntityArchetype _obstacleArchetype;
+        private EntityManager EntityManager => World.DefaultGameObjectInjectionWorld.EntityManager;
 
         public EntitySpawner(EntityConfig entityConfig)
         {
             _entityConfig = entityConfig;
+            _entityArchetypes = new Dictionary<EntityType, EntityArchetype>();
 
-            _playerArchetype = EntityManager.CreateArchetype(
+            var playerArchetype = EntityManager.CreateArchetype(
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(Rotation),
                 typeof(RenderMesh));
+            _entityArchetypes.Add(EntityType.Player, playerArchetype);
 
-            _floorArchetype = EntityManager.CreateArchetype(
+            var floorArchetype = EntityManager.CreateArchetype(
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(Rotation),
                 typeof(RenderMesh));
+            _entityArchetypes.Add(EntityType.Floor, floorArchetype);
 
-            _obstacleArchetype = EntityManager.CreateArchetype(
+            var obstacleArchetype = EntityManager.CreateArchetype(
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(Rotation),
                 typeof(RenderMesh));
+            _entityArchetypes.Add(EntityType.Obstacle, obstacleArchetype);
         }
 
-        public void Initialize()
+        public void SpawnPlayerAt(Vector3 position)
         {
-            Observable.EveryUpdate()
-                .Subscribe(_ =>
-                {
-                    if (Input.GetKeyDown("q"))
-                    {
-                        SpawnEntityAt(EntityType.Floor, Vector3.zero);
-                    }
-                })
-                .AddTo(Disposer);
-
-        }
-
-        public void SpawnEntityAt(EntityType entityType, Vector3 position)
-        {
-            switch (entityType)
-            {
-                case EntityType.Player:
-                    break;
-                case EntityType.Floor:
-                    SpawnFloorAt(position);
-                    break;
-                case EntityType.Obstacle:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(entityType), entityType, null);
-            }
-        }
-
-        private void SpawnFloorAt(Vector3 position)
-        {
-            var entity = EntityManager.CreateEntity(_floorArchetype);
-
-            EntityManager.SetComponentData(entity, new Translation { Value = position });
-            EntityManager.SetSharedComponentData(entity, CreateRenderMeshFor(EntityType.Floor));
+            var entity = CreateEntityAt(EntityType.Player, position);
 
             EntityManager.Instantiate(entity);
+        }
+
+        public void SpawnFloorTileAt(Vector3 position)
+        {
+            var entity = CreateEntityAt(EntityType.Floor, position);
+
+            EntityManager.Instantiate(entity);
+        }
+
+        private Entity CreateEntityAt(
+            EntityType entityType,
+            Vector3 position)
+        {
+            var archetype = _entityArchetypes[entityType];
+            var entity = EntityManager.CreateEntity(archetype);
+
+            EntityManager.SetComponentData(entity, new Translation { Value = position });
+            EntityManager.SetSharedComponentData(entity, CreateRenderMeshFor(entityType));
+
+            return entity;
         }
 
         private RenderMesh CreateRenderMeshFor(EntityType entityType)

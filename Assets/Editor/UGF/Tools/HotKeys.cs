@@ -17,7 +17,7 @@ namespace Assets.Editor
         /// <summary>
         /// Runs the game from the Default scene.
         /// </summary>
-        [MenuItem("Tools/Run Game %L")]
+        [MenuItem("Tools/Run Game %k")]
         static void RunGameFromDefaultScene()
         {
             if (EditorApplication.isPlaying)
