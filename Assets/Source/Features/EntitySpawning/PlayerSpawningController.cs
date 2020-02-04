@@ -1,7 +1,7 @@
 ﻿using Source.Entities.Config;
 using Source.Features.DataBridge;
 using Source.Features.ScreenSize;
-using UnityEngine;
+using Unity.Mathematics;
 using Zenject;
 
 namespace Source.Features.EntitySpawning
@@ -36,9 +36,10 @@ namespace Source.Features.EntitySpawning
 
             var bottomLeftCorner = _screenSizeController.GetBottomLeftCorner();
 
-            var spawnPosition = new Vector3(
+            var spawnPosition = new float3(
                 bottomLeftCorner.x + playerSize.x,
-                bottomLeftCorner.y + floorTileSize.y + playerSize.y / 2);
+                bottomLeftCorner.y + floorTileSize.y + playerSize.y / 2,
+                0);
 
             _playerSpawner.SpawnPlayerAt(spawnPosition);
 
