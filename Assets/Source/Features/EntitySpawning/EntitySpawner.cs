@@ -45,7 +45,8 @@ namespace Source.Features.EntitySpawning
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(Rotation),
-                typeof(RenderMesh));
+                typeof(RenderMesh),
+                typeof(FollowEntity));
             _entityArchetypes.Add(EntityType.Obstacle, obstacleArchetype);
         }
 
@@ -55,6 +56,15 @@ namespace Source.Features.EntitySpawning
 
             EntityManager.SetComponentData(entity, new MoveSpeed { Value = 2 });
             EntityManager.SetComponentData(entity, new MoveDirection { Value = new float3(1, 0, 0) });
+
+            var follower = CreateEntityAt(EntityType.Obstacle, position + Vector3.one * 5);
+            EntityManager.SetComponentData(follower, new FollowEntity
+            {
+                TargetEntity = entity,
+                Offset= new float3(5,5,0),
+                FollowX = true,
+                FollowY = false
+            });
         }
 
         public void SpawnFloorTileAt(Vector3 position)

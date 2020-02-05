@@ -10,6 +10,11 @@ namespace Source.Features.DataBridge
     {
         private static readonly Dictionary<BlackboardEntryId, object> BlackboardStore = new Dictionary<BlackboardEntryId, object>();
 
+        static Blackboard()
+        {
+            Reset();
+        }
+
         public static void Reset([CallerFilePath] string sourceFilePath = "")
         {
             if (!sourceFilePath.Contains(nameof(GameSceneInstaller)))
@@ -37,6 +42,11 @@ namespace Source.Features.DataBridge
         public static bool TryGet<T>(BlackboardEntryId blackboardEntryId, out T value)
         {
             value = default(T);
+
+            if (!BlackboardStore.ContainsKey(blackboardEntryId))
+            {
+                return false;
+            }
 
             var currentValue = BlackboardStore[blackboardEntryId];
             if (currentValue == null)

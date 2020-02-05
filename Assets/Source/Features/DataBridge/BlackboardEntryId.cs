@@ -3,6 +3,7 @@
     public enum BlackboardEntryId
     {
         PlayerSpawnPosition = 0,
-        PlayerPosition = 1
+        PlayerPosition = 1,
+        PlayerDistanceTraveled = 2
     }
 }

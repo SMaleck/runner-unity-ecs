@@ -28,7 +28,7 @@ namespace Source.Installation.SceneInstallers
 
             Container.BindPrefabFactory<HudView, HudView.Factory>();
 
-            Container.BindInterfacesAndSelfTo<GameCamera>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameCameraController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ScreenSizeModel>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingle().NonLazy();
 
