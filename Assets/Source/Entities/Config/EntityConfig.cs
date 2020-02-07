@@ -23,6 +23,10 @@ namespace Source.Entities.Config
 
         }
 
+        [SerializeField] private PlayerEntityConfig _playerEntityConfig;
+        public PlayerEntityConfig PlayerEntityConfig => _playerEntityConfig;
+
+
         [Header("Entity Settings")]
         [SerializeField] private List<EntitySetting> _entitySettings;
 

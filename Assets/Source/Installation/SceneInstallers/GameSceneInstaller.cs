@@ -1,6 +1,7 @@
 ﻿using Source.Features.Camera;
 using Source.Features.DataBridge;
 using Source.Features.EntitySpawning;
+using Source.Features.EntitySpawning.Factories;
 using Source.Features.Hud;
 using Source.Features.ScreenSize;
 using Source.Initialization;
@@ -33,6 +34,10 @@ namespace Source.Installation.SceneInstallers
             Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingle().NonLazy();
 
             Container.BindInterfacesAndSelfTo<EntitySpawner>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerEntityFactory>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<FloorTileEntityFactory>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<ObstacleEntityFactory>().AsSingle().NonLazy();
+
             Container.BindInterfacesAndSelfTo<EcsCleanupController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerSpawningController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FloorSpawningController>().AsSingle().NonLazy();

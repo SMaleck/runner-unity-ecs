@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b1a9cf57e10b14d9e5cc12eb4c713c, type: 3}
   m_Name: EntityConfig
   m_EditorClassIdentifier: 
+  _playerEntityConfig:
+    _playerEntityPrefab: {fileID: -6757410582714966154, guid: 7207090d6c4c6684aa2ec62f5ceef2f8,
+      type: 3}
+    _floorColliderPrefab: {fileID: -4400672658963553225, guid: 8c1ae57d14575cb4286852418ba061a5,
+      type: 3}
   _entitySettings:
   - _entityType: 0
     _entityMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}

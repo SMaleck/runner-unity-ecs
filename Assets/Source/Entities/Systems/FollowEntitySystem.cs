@@ -1,12 +1,17 @@
 ﻿using Source.Entities.Components;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Physics.Systems;
 using Unity.Transforms;
 
 namespace Source.Entities.Systems
 {
+    [BurstCompile]
+    [UpdateAfter(typeof(MovementSystem))]
+    [UpdateBefore(typeof(BuildPhysicsWorld))]
     public class FollowEntitySystem : JobComponentSystem
     {
         struct FollowEntityJob : IJobForEach<Translation, FollowEntity>

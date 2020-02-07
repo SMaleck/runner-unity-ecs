@@ -12,7 +12,7 @@ namespace Source.Features.DataBridge
 
         static Blackboard()
         {
-            Reset();
+            ClearAndResetBlackboard();
         }
 
         public static void Reset([CallerFilePath] string sourceFilePath = "")
@@ -23,6 +23,11 @@ namespace Source.Features.DataBridge
                 return;
             }
 
+            ClearAndResetBlackboard();
+        }
+
+        private static void ClearAndResetBlackboard()
+        {
             BlackboardStore.Clear();
             EnumHelper<BlackboardEntryId>.ForEach(
                 entryId => BlackboardStore.Add(entryId, null));
