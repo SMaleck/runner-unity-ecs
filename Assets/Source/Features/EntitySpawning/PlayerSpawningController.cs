@@ -2,6 +2,7 @@
 using Source.Features.DataBridge;
 using Source.Features.ScreenSize;
 using Unity.Mathematics;
+using UnityEngine;
 using Zenject;
 
 namespace Source.Features.EntitySpawning
@@ -29,11 +30,14 @@ namespace Source.Features.EntitySpawning
                 .bounds
                 .size;
 
-            var playerSize = _entityConfig.GetEntitySetting(EntityType.Player)
-                .EntityMesh
+            // ToDO [ECS] Player and floor size need to be gotten differently
+            var playerSize = _entityConfig.PlayerEntityConfig
+                .PlayerEntityPrefab
+                .GetComponent<MeshFilter>()
+                .sharedMesh
                 .bounds
                 .size;
-
+            
             var bottomLeftCorner = _screenSizeController.GetBottomLeftCorner();
 
             var spawnPosition = new float3(

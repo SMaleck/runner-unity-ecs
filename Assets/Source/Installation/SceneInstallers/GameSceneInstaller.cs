@@ -33,6 +33,7 @@ namespace Source.Installation.SceneInstallers
             Container.BindInterfacesAndSelfTo<ScreenSizeModel>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingle().NonLazy();
 
+            // ToDo [ECS] Should this be bound here or on the Project level? How to handle EcsCleanupController if Project Level?
             Container.BindInterfacesAndSelfTo<EntitySpawner>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerEntityFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FloorTileEntityFactory>().AsSingle().NonLazy();

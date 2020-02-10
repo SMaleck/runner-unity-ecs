@@ -20,7 +20,7 @@ namespace Source.Features.EntitySpawning.Factories
 
             var settings = GameObjectConversionSettings.FromWorld(
                 World.DefaultGameObjectInjectionWorld,
-                new BlobAssetStore().AddTo(Disposer));
+                new BlobAssetStore().AddTo(Disposer)); // ToDo [ECS] Is this correct?
 
             _playerEntityPrefab = GameObjectConversionUtility.ConvertGameObjectHierarchy(
                 _playerEntityConfig.PlayerEntityPrefab,
@@ -34,26 +34,54 @@ namespace Source.Features.EntitySpawning.Factories
         public Entity CreateEntityAt(float3 spawnPosition)
         {
             var playerEntity = EntityManager.Instantiate(_playerEntityPrefab);
-
-            EntityManager.SetComponentData(playerEntity, new Translation { Value = spawnPosition });
-            EntityManager.SetComponentData(playerEntity, new MoveSpeed { Value = 2 });
-            EntityManager.SetComponentData(playerEntity, new MoveDirection { Value = new float3(1, 0, 0) });
-            EntityManager.SetComponentData(playerEntity, new TravelStats
-            {
-                Origin = spawnPosition,
-                CurrentPosition = spawnPosition,
-                DistanceTraveledUnits = 0
-            });
-
-            var playerRenderMesh = EntityManager.GetSharedComponentData<RenderMesh>(playerEntity);
-            var playerHalfSize = playerRenderMesh.mesh.bounds.size * 0.5f;
+            SetPlayerComponentData(playerEntity, spawnPosition);
 
             var floorColliderEntity = EntityManager.Instantiate(_floorColliderEntityPrefab);
+            SetFloorColliderComponentData(floorColliderEntity, playerEntity);
+
+            return playerEntity;
+        }
+
+        private void SetPlayerComponentData(Entity entity, float3 position)
+        {
+            EntityManager.SetComponentData(entity, new Translation
+            {
+                Value = position
+            });
+
+            EntityManager.SetComponentData(entity, new MoveSpeed
+            {
+                Value = _playerEntityConfig.MoveSpeed
+            });
+
+            EntityManager.SetComponentData(entity, new MoveDirection
+            {
+                Value = _playerEntityConfig.MoveDirection
+            });
+
+            EntityManager.SetComponentData(entity, new JumpIntent
+            {
+                HasIntent = false,
+                JumpForce = _playerEntityConfig.JumpForce
+            });
+
+            EntityManager.SetComponentData(entity, new TravelStats
+            {
+                Origin = position,
+                CurrentPosition = position,
+                DistanceTraveledUnits = 0
+            });
+        }
+
+        private void SetFloorColliderComponentData(Entity floorColliderEntity, Entity playerEntity)
+        {
+            var playerPosition = EntityManager.GetComponentData<Translation>(playerEntity).Value;
+            var playerHalfSize = GetPlayerSize(playerEntity) * 0.5f;
             var floorColliderOffset = GetFloorColliderOffset(floorColliderEntity, playerHalfSize);
 
             EntityManager.SetComponentData(floorColliderEntity, new Translation
             {
-                Value = new float3(spawnPosition.x, spawnPosition.y - floorColliderOffset.y, spawnPosition.z)
+                Value = new float3(playerPosition.x, playerPosition.y - floorColliderOffset.y, playerPosition.z)
             });
 
             EntityManager.SetComponentData(floorColliderEntity, new FollowEntity
@@ -63,8 +91,12 @@ namespace Source.Features.EntitySpawning.Factories
                 FollowX = true,
                 FollowY = false
             });
+        }
 
-            return playerEntity;
+        private float3 GetPlayerSize(Entity entity)
+        {
+            var playerRenderMesh = EntityManager.GetSharedComponentData<RenderMesh>(entity);
+            return playerRenderMesh.mesh.bounds.size;
         }
 
         private float3 GetFloorColliderOffset(Entity floorColliderEntity, float3 playerHalfSize)

@@ -17,6 +17,10 @@ MonoBehaviour:
       type: 3}
     _floorColliderPrefab: {fileID: -4400672658963553225, guid: 8c1ae57d14575cb4286852418ba061a5,
       type: 3}
+    _moveDirection: {x: 1, y: 0, z: 0}
+    _moveSpeed: 2
+    _jumpForce: 20
+    _health: 2
   _entitySettings:
   - _entityType: 0
     _entityMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}

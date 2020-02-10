@@ -10,9 +10,11 @@ namespace Source.Entities.EntityConverters
         public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
         {
             entityManager.AddComponent<PlayerTag>(entity);
+            entityManager.AddComponent<InputDriverTag>(entity);
             entityManager.AddComponent<MoveSpeed>(entity);
             entityManager.AddComponent<MoveDirection>(entity);
             entityManager.AddComponent<TravelStats>(entity);
+            entityManager.AddComponent<JumpIntent>(entity);
         }
     }
 }
