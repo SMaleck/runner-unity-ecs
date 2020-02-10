@@ -12,6 +12,7 @@ namespace Source.Entities.EntityConverters
             entityManager.AddComponent<PlayerTag>(entity);
             entityManager.AddComponent<MoveSpeed>(entity);
             entityManager.AddComponent<MoveDirection>(entity);
+            entityManager.AddComponent<TravelStats>(entity);
         }
     }
 }

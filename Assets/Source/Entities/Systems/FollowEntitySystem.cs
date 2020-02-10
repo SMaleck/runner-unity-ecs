@@ -14,7 +14,7 @@ namespace Source.Entities.Systems
     [UpdateBefore(typeof(BuildPhysicsWorld))]
     public class FollowEntitySystem : JobComponentSystem
     {
-        struct FollowEntityJob : IJobForEach<Translation, FollowEntity>
+        private struct FollowEntitySystemJob : IJobForEach<Translation, FollowEntity>
         {
             [ReadOnly] public ComponentDataFromEntity<LocalToWorld> LocalToWorldFromTargetEntity;
 
@@ -41,7 +41,7 @@ namespace Source.Entities.Systems
 
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-            FollowEntityJob job = new FollowEntityJob()
+            var job = new FollowEntitySystemJob()
             {
                 LocalToWorldFromTargetEntity = GetComponentDataFromEntity<LocalToWorld>(true)
             };

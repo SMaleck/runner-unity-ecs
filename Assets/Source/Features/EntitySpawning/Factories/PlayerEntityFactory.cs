@@ -38,6 +38,12 @@ namespace Source.Features.EntitySpawning.Factories
             EntityManager.SetComponentData(playerEntity, new Translation { Value = spawnPosition });
             EntityManager.SetComponentData(playerEntity, new MoveSpeed { Value = 2 });
             EntityManager.SetComponentData(playerEntity, new MoveDirection { Value = new float3(1, 0, 0) });
+            EntityManager.SetComponentData(playerEntity, new TravelStats
+            {
+                Origin = spawnPosition,
+                CurrentPosition = spawnPosition,
+                DistanceTraveledUnits = 0
+            });
 
             var playerRenderMesh = EntityManager.GetSharedComponentData<RenderMesh>(playerEntity);
             var playerHalfSize = playerRenderMesh.mesh.bounds.size * 0.5f;

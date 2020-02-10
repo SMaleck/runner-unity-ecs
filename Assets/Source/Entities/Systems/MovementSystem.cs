@@ -13,7 +13,7 @@ namespace Source.Entities.Systems
     public class MovementSystem : JobComponentSystem
     {
         [BurstCompile]
-        struct MovementSystemJob : IJobForEach<Translation, MoveSpeed, MoveDirection>
+        private struct MovementSystemJob : IJobForEach<Translation, MoveSpeed, MoveDirection>
         {
             public float DeltaTime;
 
@@ -28,12 +28,12 @@ namespace Source.Entities.Systems
 
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-            var moveForwardRotationJob = new MovementSystemJob
+            var job = new MovementSystemJob
             {
                 DeltaTime = Time.DeltaTime
             };
 
-            return moveForwardRotationJob.Schedule(this, inputDeps);
+            return job.Schedule(this, inputDeps);
         }
     }
 }
