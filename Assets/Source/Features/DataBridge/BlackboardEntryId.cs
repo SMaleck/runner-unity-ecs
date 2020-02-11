@@ -4,6 +4,7 @@
     {
         PlayerSpawnPosition = 0,
         PlayerPosition = 1,
-        PlayerDistanceTraveled = 2
+        PlayerDistanceTraveled = 2,
+        CameraPosition = 3
     }
 }

@@ -31,6 +31,8 @@ namespace Source.Features.Camera
                 position.x,
                 _camera.transform.position.y,
                 _camera.transform.position.z);
+
+            Blackboard.Set(BlackboardEntryId.CameraPosition, new float3(_camera.transform.position));
         }
     }
 }
