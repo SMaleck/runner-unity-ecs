@@ -1,5 +1,5 @@
 ﻿using Source.Entities.Components;
-using Source.Entities.Components.Tags;
+using Source.Entities.ComponentTags;
 using Unity.Entities;
 using UnityEngine;
 

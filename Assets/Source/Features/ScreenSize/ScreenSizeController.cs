@@ -1,4 +1,5 @@
 ﻿using System;
+using Source.Features.DataBridge;
 using UGF.Util;
 using UGF.Util.UniRx;
 using UnityEngine;
@@ -12,6 +13,10 @@ namespace Source.Features.ScreenSize
         public ScreenSizeController(ScreenSizeModel screenSizeModel)
         {
             _screenSizeModel = screenSizeModel;
+
+            Blackboard.Set(
+                BlackboardEntryId.CameraWidthExtendUnits, 
+                _screenSizeModel.WidthExtendUnits);
         }
 
         public Vector2 GetBottomLeftCorner(

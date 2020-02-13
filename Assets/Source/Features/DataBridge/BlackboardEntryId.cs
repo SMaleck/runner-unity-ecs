@@ -5,6 +5,7 @@
         PlayerSpawnPosition = 0,
         PlayerPosition = 1,
         PlayerDistanceTraveled = 2,
-        CameraPosition = 3
+        CameraPosition = 3,
+        CameraWidthExtendUnits = 4
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 
-namespace Source.Entities.Components.Tags
+namespace Source.Entities.ComponentTags
 {
     public struct InputDriverTag : IComponentData
     {

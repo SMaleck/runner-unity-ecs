@@ -1,6 +1,5 @@
-﻿using Source.Entities.Components;
+﻿using Source.Entities.ComponentTags;
 using Source.Features.EntitySpawning.Config;
-using Source.Features.ScreenSize;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
@@ -8,24 +7,23 @@ using Unity.Transforms;
 
 namespace Source.Features.EntitySpawning.Factories
 {
+    /// <summary>
+    /// Referenced in ReadMe under: 3 - Pure code
+    /// </summary>
     public class FloorTileEntityFactory : AbstractEntityFactory, IEntityFactory
     {
         private readonly FloorTileEntityConfig _floorTileEntityConfig;
-        private readonly ScreenSizeModel _screenSizeModel;
         private readonly EntityArchetype _entityArchetype;
 
-        public FloorTileEntityFactory(
-            FloorTileEntityConfig floorTileEntityConfig,
-            ScreenSizeModel screenSizeModel)
+        public FloorTileEntityFactory(FloorTileEntityConfig floorTileEntityConfig)
         {
             _floorTileEntityConfig = floorTileEntityConfig;
-            _screenSizeModel = screenSizeModel;
             _entityArchetype = EntityManager.CreateArchetype(
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(Rotation),
                 typeof(RenderMesh),
-                typeof(KillThresholdX));
+                typeof(DestroyOutOfBoundsTag));
         }
 
         public Entity CreateEntityAt(float3 spawnPosition)
@@ -35,11 +33,6 @@ namespace Source.Features.EntitySpawning.Factories
             EntityManager.SetComponentData(entity, new Translation
             {
                 Value = spawnPosition
-            });
-
-            EntityManager.SetComponentData(entity, new KillThresholdX
-            {
-                Value = 0.5f + _screenSizeModel.WidthExtendUnits
             });
 
             EntityManager.SetSharedComponentData(entity, new RenderMesh
