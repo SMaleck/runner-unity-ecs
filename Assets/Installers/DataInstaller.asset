@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a87774ac9899c44808462d471f8ce1, type: 3}
   m_Name: DataInstaller
   m_EditorClassIdentifier: 
-  _entityConfig: {fileID: 11400000, guid: c375a705fc3e2b24da580daf26e2b842, type: 2}
   _viewPrefabConfig: {fileID: 11400000, guid: 4b192d77c6fb58f44ad949ee8db46eed, type: 2}
   _audioClipsConfig: {fileID: 11400000, guid: cb908933b822f0a4c8fc7f8e41cbf078, type: 2}
+  _entitySpawningConfig: {fileID: 11400000, guid: c375a705fc3e2b24da580daf26e2b842,
+    type: 2}

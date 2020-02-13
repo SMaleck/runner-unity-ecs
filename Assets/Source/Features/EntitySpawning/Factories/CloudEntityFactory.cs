@@ -7,19 +7,21 @@ using Unity.Transforms;
 
 namespace Source.Features.EntitySpawning.Factories
 {
-    public class ObstacleEntityFactory : AbstractEntityFactory, IEntityFactory
+    public class CloudEntityFactory : AbstractEntityFactory, IEntityFactory
     {
-        private readonly ObstacleEntityConfig _obstacleEntityConfig;
+        private readonly CloudEntityConfig _cloudEntityConfig;
         private readonly EntityArchetype _entityArchetype;
 
-        public ObstacleEntityFactory(ObstacleEntityConfig obstacleEntityConfig)
+        public CloudEntityFactory(CloudEntityConfig cloudEntityConfig)
         {
-            _obstacleEntityConfig = obstacleEntityConfig;
+            _cloudEntityConfig = cloudEntityConfig;
+
             _entityArchetype = EntityManager.CreateArchetype(
                 typeof(Translation),
                 typeof(LocalToWorld),
                 typeof(Rotation),
-                typeof(RenderMesh));
+                typeof(RenderMesh),
+                typeof(FollowEntity));
         }
 
         public Entity CreateEntityAt(float3 spawnPosition)
@@ -30,11 +32,11 @@ namespace Source.Features.EntitySpawning.Factories
             {
                 Value = spawnPosition
             });
-            
+
             EntityManager.SetSharedComponentData(entity, new RenderMesh
             {
-                mesh = _obstacleEntityConfig.EntityMesh,
-                material = _obstacleEntityConfig.EntityMaterial
+                mesh = _cloudEntityConfig.EntityMesh,
+                material = _cloudEntityConfig.EntityMaterial
             });
 
             return entity;

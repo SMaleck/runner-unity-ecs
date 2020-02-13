@@ -1,5 +1,5 @@
 ﻿using Source.Entities.Components;
-using Source.Entities.Config;
+using Source.Features.EntitySpawning.Config;
 using Source.Features.ScreenSize;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -10,17 +10,15 @@ namespace Source.Features.EntitySpawning.Factories
 {
     public class FloorTileEntityFactory : AbstractEntityFactory, IEntityFactory
     {
-        private const EntityType EntityFactoryType = EntityType.Floor;
-
-        private readonly EntityConfig _entityConfig;
+        private readonly FloorTileEntityConfig _floorTileEntityConfig;
         private readonly ScreenSizeModel _screenSizeModel;
         private readonly EntityArchetype _entityArchetype;
 
         public FloorTileEntityFactory(
-            EntityConfig entityConfig,
+            FloorTileEntityConfig floorTileEntityConfig,
             ScreenSizeModel screenSizeModel)
         {
-            _entityConfig = entityConfig;
+            _floorTileEntityConfig = floorTileEntityConfig;
             _screenSizeModel = screenSizeModel;
             _entityArchetype = EntityManager.CreateArchetype(
                 typeof(Translation),
@@ -44,20 +42,13 @@ namespace Source.Features.EntitySpawning.Factories
                 Value = 0.5f + _screenSizeModel.WidthExtendUnits
             });
 
-            EntityManager.SetSharedComponentData(entity, CreateRenderMeshFor(EntityFactoryType));
+            EntityManager.SetSharedComponentData(entity, new RenderMesh
+            {
+                mesh = _floorTileEntityConfig.EntityMesh,
+                material = _floorTileEntityConfig.EntityMaterial
+            });
 
             return entity;
-        }
-
-        private RenderMesh CreateRenderMeshFor(EntityType entityType)
-        {
-            var entitySetting = _entityConfig.GetEntitySetting(entityType);
-
-            return new RenderMesh
-            {
-                mesh = entitySetting.EntityMesh,
-                material = entitySetting.EntityMaterial
-            };
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Source.Entities.Systems
                 [ReadOnly] ref MoveSpeed moveSpeed,
                 [ReadOnly] ref MoveDirection moveDirection)
             {
-                translation.Value += DeltaTime * moveSpeed.Value * moveDirection.Value;
+                translation.Value += DeltaTime * moveSpeed.SpeedPerSecond * moveDirection.Direction;
             }
         }
 

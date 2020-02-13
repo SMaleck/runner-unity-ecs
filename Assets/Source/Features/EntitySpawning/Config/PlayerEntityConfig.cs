@@ -1,8 +1,8 @@
-﻿using Source.Entities.EntityConverters;
-using System;
+﻿using System;
+using Source.Features.EntitySpawning.Converters;
 using UnityEngine;
 
-namespace Source.Entities.Config
+namespace Source.Features.EntitySpawning.Config
 {
     [Serializable]
     public class PlayerEntityConfig

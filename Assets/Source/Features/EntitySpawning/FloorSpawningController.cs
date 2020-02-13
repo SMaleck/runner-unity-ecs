@@ -1,7 +1,7 @@
-﻿using Source.Entities.Config;
-using Source.Features.DataBridge;
+﻿using Source.Features.DataBridge;
 using Source.Features.ScreenSize;
 using System;
+using Source.Features.EntitySpawning.Config;
 using UGF.Util.UniRx;
 using UniRx;
 using Unity.Mathematics;
@@ -13,6 +13,7 @@ namespace Source.Features.EntitySpawning
     public class FloorSpawningController : AbstractDisposable, IInitializable
     {
         private readonly IFloorSpawner _floorSpawner;
+        private readonly FloorTileEntityConfig _floorTileEntityConfig;
         private readonly ScreenSizeModel _screenSizeModel;
         private readonly ScreenSizeController _screenSizeController;
 
@@ -25,15 +26,16 @@ namespace Source.Features.EntitySpawning
 
         public FloorSpawningController(
             IFloorSpawner floorSpawner,
-            EntityConfig entityConfig,
+            FloorTileEntityConfig floorTileEntityConfig,
             ScreenSizeModel screenSizeModel,
             ScreenSizeController screenSizeController)
         {
             _floorSpawner = floorSpawner;
+            _floorTileEntityConfig = floorTileEntityConfig;
             _screenSizeModel = screenSizeModel;
             _screenSizeController = screenSizeController;
 
-            _floorTileSize = entityConfig.GetEntitySetting(EntityType.Floor)
+            _floorTileSize = _floorTileEntityConfig
                 .EntityMesh
                 .bounds
                 .size;

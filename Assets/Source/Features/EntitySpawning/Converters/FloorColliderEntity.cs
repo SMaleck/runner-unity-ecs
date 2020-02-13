@@ -2,7 +2,7 @@
 using Unity.Entities;
 using UnityEngine;
 
-namespace Source.Entities.EntityConverters
+namespace Source.Features.EntitySpawning.Converters
 {
     public class FloorColliderEntity : MonoBehaviour, IConvertGameObjectToEntity
     {

@@ -1,5 +1,5 @@
 ﻿using Source.Entities.Components;
-using Source.Entities.Config;
+using Source.Features.EntitySpawning.Config;
 using UniRx;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -51,12 +51,12 @@ namespace Source.Features.EntitySpawning.Factories
 
             EntityManager.SetComponentData(entity, new MoveSpeed
             {
-                Value = _playerEntityConfig.MoveSpeed
+                SpeedPerSecond = _playerEntityConfig.MoveSpeed
             });
 
             EntityManager.SetComponentData(entity, new MoveDirection
             {
-                Value = _playerEntityConfig.MoveDirection
+                Direction = _playerEntityConfig.MoveDirection
             });
 
             EntityManager.SetComponentData(entity, new JumpIntent

@@ -1,5 +1,5 @@
-﻿using Source.Entities.Config;
-using Source.Features.DataBridge;
+﻿using Source.Features.DataBridge;
+using Source.Features.EntitySpawning.Config;
 using Source.Features.ScreenSize;
 using Unity.Mathematics;
 using UnityEngine;
@@ -10,28 +10,31 @@ namespace Source.Features.EntitySpawning
     public class PlayerSpawningController : IInitializable
     {
         private readonly IPlayerSpawner _playerSpawner;
-        private readonly EntityConfig _entityConfig;
+        private readonly PlayerEntityConfig _playerEntityConfig;
+        private readonly FloorTileEntityConfig _floorTileEntityConfig;
         private readonly ScreenSizeController _screenSizeController;
 
         public PlayerSpawningController(
             IPlayerSpawner playerSpawner,
-            EntityConfig entityConfig,
+            PlayerEntityConfig playerEntityConfig,
+            FloorTileEntityConfig floorTileEntityConfig,
             ScreenSizeController screenSizeController)
         {
             _playerSpawner = playerSpawner;
-            _entityConfig = entityConfig;
+            _playerEntityConfig = playerEntityConfig;
+            _floorTileEntityConfig = floorTileEntityConfig;
             _screenSizeController = screenSizeController;
         }
 
         public void Initialize()
         {
-            var floorTileSize = _entityConfig.GetEntitySetting(EntityType.Floor)
+            var floorTileSize = _floorTileEntityConfig
                 .EntityMesh
                 .bounds
                 .size;
 
             // ToDO [ECS] Player and floor size need to be gotten differently
-            var playerSize = _entityConfig.PlayerEntityConfig
+            var playerSize = _playerEntityConfig
                 .PlayerEntityPrefab
                 .GetComponent<MeshFilter>()
                 .sharedMesh
