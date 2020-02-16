@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Source.Features.EntitySpawning.Config
@@ -6,13 +7,7 @@ namespace Source.Features.EntitySpawning.Config
     [Serializable]
     public class ObstacleEntityConfig
     {
-        [SerializeField] private GameObject _prefab;
-        public GameObject Prefab => _prefab;
-
-        [SerializeField] private Mesh _entityMesh;
-        public Mesh EntityMesh => _entityMesh;
-
-        [SerializeField] private Material _entityMaterial;
-        public Material EntityMaterial => _entityMaterial;
+        [SerializeField] private List<GameObject> _prefabs;
+        public List<GameObject> Prefabs => _prefabs;
     }
 }

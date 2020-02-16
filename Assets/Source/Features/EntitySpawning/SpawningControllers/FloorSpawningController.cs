@@ -1,18 +1,19 @@
 ﻿using Source.Features.DataBridge;
+using Source.Features.EntitySpawning.Config;
+using Source.Features.EntitySpawning.Factories;
 using Source.Features.ScreenSize;
 using System;
-using Source.Features.EntitySpawning.Config;
 using UGF.Util.UniRx;
 using UniRx;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
-namespace Source.Features.EntitySpawning
+namespace Source.Features.EntitySpawning.SpawningControllers
 {
     public class FloorSpawningController : AbstractDisposable, IInitializable
     {
-        private readonly IFloorSpawner _floorSpawner;
+        private readonly FloorTileEntityFactory _floorTileEntityFactory;
         private readonly FloorTileEntityConfig _floorTileEntityConfig;
         private readonly ScreenSizeModel _screenSizeModel;
         private readonly ScreenSizeController _screenSizeController;
@@ -25,12 +26,12 @@ namespace Source.Features.EntitySpawning
         private float3 _lastRecordedPlayerPosition;
 
         public FloorSpawningController(
-            IFloorSpawner floorSpawner,
+            FloorTileEntityFactory floorTileEntityFactory,
             FloorTileEntityConfig floorTileEntityConfig,
             ScreenSizeModel screenSizeModel,
             ScreenSizeController screenSizeController)
         {
-            _floorSpawner = floorSpawner;
+            _floorTileEntityFactory = floorTileEntityFactory;
             _floorTileEntityConfig = floorTileEntityConfig;
             _screenSizeModel = screenSizeModel;
             _screenSizeController = screenSizeController;
@@ -89,7 +90,7 @@ namespace Source.Features.EntitySpawning
                     startPosition.y,
                     0);
 
-                _floorSpawner.SpawnFloorTileAt(_lastFloorTileSpawnPosition);
+                _floorTileEntityFactory.CreateEntityAt(_lastFloorTileSpawnPosition);
             }
         }
 
@@ -100,7 +101,7 @@ namespace Source.Features.EntitySpawning
                 _lastFloorTileSpawnPosition.y,
                 0);
 
-            _floorSpawner.SpawnFloorTileAt(spawnPosition);
+            _floorTileEntityFactory.CreateEntityAt(spawnPosition);
             _lastFloorTileSpawnPosition = spawnPosition;
         }
     }

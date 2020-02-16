@@ -22,14 +22,13 @@ MonoBehaviour:
     _jumpForce: 20
     _health: 2
   _floorTileEntityConfig:
-    _prefab: {fileID: 0}
     _entityMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     _entityMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   _cloudEntityConfig:
-    _prefab: {fileID: 0}
-    _entityMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    _entityMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+    _prefabs:
+    - {fileID: 2920947053782229879, guid: c4c2c4491d92cf74cba1fe32597d7ff3, type: 3}
+    - {fileID: 2920947053782229879, guid: b78ffcd238ea82a4cb9e7cf5ccbd7b2f, type: 3}
   _obstacleEntityConfig:
-    _prefab: {fileID: 0}
-    _entityMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    _entityMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+    _prefabs:
+    - {fileID: 2920947053782229879, guid: 0ae2b6dae3a035a4a92d63d473777142, type: 3}
+    - {fileID: 2920947053782229879, guid: 423a5e0677182aa49871f955398c8dd4, type: 3}

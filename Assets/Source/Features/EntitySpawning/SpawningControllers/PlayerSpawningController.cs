@@ -1,26 +1,27 @@
 ﻿using Source.Features.DataBridge;
 using Source.Features.EntitySpawning.Config;
+using Source.Features.EntitySpawning.Factories;
 using Source.Features.ScreenSize;
 using Unity.Mathematics;
 using UnityEngine;
 using Zenject;
 
-namespace Source.Features.EntitySpawning
+namespace Source.Features.EntitySpawning.SpawningControllers
 {
     public class PlayerSpawningController : IInitializable
     {
-        private readonly IPlayerSpawner _playerSpawner;
+        private readonly PlayerEntityFactory _playerEntityFactory;
         private readonly PlayerEntityConfig _playerEntityConfig;
         private readonly FloorTileEntityConfig _floorTileEntityConfig;
         private readonly ScreenSizeController _screenSizeController;
 
         public PlayerSpawningController(
-            IPlayerSpawner playerSpawner,
+            PlayerEntityFactory playerEntityFactory,
             PlayerEntityConfig playerEntityConfig,
             FloorTileEntityConfig floorTileEntityConfig,
             ScreenSizeController screenSizeController)
         {
-            _playerSpawner = playerSpawner;
+            _playerEntityFactory = playerEntityFactory;
             _playerEntityConfig = playerEntityConfig;
             _floorTileEntityConfig = floorTileEntityConfig;
             _screenSizeController = screenSizeController;
@@ -48,7 +49,7 @@ namespace Source.Features.EntitySpawning
                 bottomLeftCorner.y + floorTileSize.y + playerSize.y / 2,
                 0);
 
-            _playerSpawner.SpawnPlayerAt(spawnPosition);
+            _playerEntityFactory.CreateEntityAt(spawnPosition);
 
             Blackboard.Set(BlackboardEntryId.PlayerSpawnPosition, spawnPosition);
         }

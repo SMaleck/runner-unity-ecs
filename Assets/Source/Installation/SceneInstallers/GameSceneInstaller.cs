@@ -2,6 +2,7 @@
 using Source.Features.DataBridge;
 using Source.Features.EntitySpawning;
 using Source.Features.EntitySpawning.Factories;
+using Source.Features.EntitySpawning.SpawningControllers;
 using Source.Features.Hud;
 using Source.Features.ScreenSize;
 using Source.Initialization;
@@ -34,7 +35,6 @@ namespace Source.Installation.SceneInstallers
             Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingle().NonLazy();
 
             // ToDo [ECS] Should this be bound here or on the Project level? How to handle EcsCleanupController if Project Level?
-            Container.BindInterfacesAndSelfTo<EntitySpawner>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerEntityFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FloorTileEntityFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ObstacleEntityFactory>().AsSingle().NonLazy();
