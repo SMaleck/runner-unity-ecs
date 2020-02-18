@@ -30,7 +30,18 @@ namespace Source.Features.EntitySpawning.SpawningControllers
 
         public void Initialize()
         {
+            Observable.Interval(TimeSpan.FromSeconds(2))
+                .Subscribe(_ => Spawn())
+                .AddTo(Disposer);
+        }
 
+        private void Spawn()
+        {
+            var spawnPosition = _screenSizeController.GetBottomRightCorner(
+                1,
+                1.5f);
+
+            _cloudEntityFactory.CreateEntityAt(new float3(spawnPosition.x, spawnPosition.y, 0));
         }
     }
 }
