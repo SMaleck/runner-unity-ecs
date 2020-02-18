@@ -38,10 +38,13 @@ namespace Source.Installation.SceneInstallers
             Container.BindInterfacesAndSelfTo<PlayerEntityFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FloorTileEntityFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ObstacleEntityFactory>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<CloudEntityFactory>().AsSingle().NonLazy();
 
             Container.BindInterfacesAndSelfTo<EcsCleanupController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerSpawningController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<FloorSpawningController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<ObstacleSpawningController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<CloudSpawningController>().AsSingle().NonLazy();
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Source.Features.EntitySpawning.SpawningControllers
             // ToDO [ECS] Player and floor size need to be gotten differently
             var playerSize = _playerEntityConfig
                 .PlayerEntityPrefab
-                .GetComponent<MeshFilter>()
+                .GetComponentInChildren<MeshFilter>()
                 .sharedMesh
                 .bounds
                 .size;

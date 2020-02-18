@@ -71,6 +71,11 @@ namespace Source.Features.EntitySpawning.Factories
                 CurrentPosition = position,
                 DistanceTraveledUnits = 0
             });
+
+            EntityManager.SetComponentData(entity, new Health
+            {
+                Value = _playerEntityConfig.Health
+            });
         }
 
         private void SetFloorColliderComponentData(Entity floorColliderEntity, Entity playerEntity)

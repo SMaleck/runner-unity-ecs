@@ -8,8 +8,4 @@ namespace Source.Entities.Components
     {
         public float SpeedPerSecond;
     }
-
-    public class MoveSpeedComponent : ComponentDataProxy<MoveSpeed>
-    {
-    }
 }

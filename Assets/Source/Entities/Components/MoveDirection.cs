@@ -9,8 +9,4 @@ namespace Source.Entities.Components
     {
         public float3 Direction;
     }
-
-    public class MoveDirectionComponent : ComponentDataProxy<MoveDirection>
-    {
-    }
 }
