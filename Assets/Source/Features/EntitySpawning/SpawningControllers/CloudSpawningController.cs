@@ -1,12 +1,10 @@
-﻿using Source.Features.DataBridge;
-using Source.Features.EntitySpawning.Config;
+﻿using Source.Features.EntitySpawning.Config;
 using Source.Features.EntitySpawning.Factories;
 using Source.Features.ScreenSize;
 using System;
 using UGF.Util.UniRx;
 using UniRx;
 using Unity.Mathematics;
-using UnityEngine;
 using Zenject;
 
 namespace Source.Features.EntitySpawning.SpawningControllers
@@ -15,33 +13,43 @@ namespace Source.Features.EntitySpawning.SpawningControllers
     {
         private readonly CloudEntityFactory _cloudEntityFactory;
         private readonly CloudEntityConfig _cloudEntityConfig;
-        private readonly ScreenSizeController _screenSizeController;
+        private readonly ScreenSizeModel _screenSizeModel;
 
 
         public CloudSpawningController(
             CloudEntityFactory cloudEntityFactory,
             CloudEntityConfig cloudEntityConfig,
-            ScreenSizeController screenSizeController)
+            ScreenSizeModel screenSizeModel)
         {
             _cloudEntityFactory = cloudEntityFactory;
             _cloudEntityConfig = cloudEntityConfig;
-            _screenSizeController = screenSizeController;
+            _screenSizeModel = screenSizeModel;
         }
 
         public void Initialize()
         {
-            Observable.Interval(TimeSpan.FromSeconds(2))
+            Observable.Interval(TimeSpan.FromSeconds(2f))
                 .Subscribe(_ => Spawn())
                 .AddTo(Disposer);
         }
 
         private void Spawn()
         {
-            var spawnPosition = _screenSizeController.GetBottomRightCorner(
-                1,
-                1.5f);
+            var rightEdgeX = _screenSizeModel.GetCurrentEdge(ScreenSide.Right).x;
 
-            _cloudEntityFactory.CreateEntityAt(new float3(spawnPosition.x, spawnPosition.y, 0));
+            var spawnPosition = new float3(
+                rightEdgeX + _cloudEntityConfig.ScreenOffsetX,
+                GetRandomY(),
+                0);
+
+            _cloudEntityFactory.CreateEntityAt(spawnPosition);
+        }
+
+        private float GetRandomY()
+        {
+            return UnityEngine.Random.Range(
+                _cloudEntityConfig.PositionRangeMinY,
+                _cloudEntityConfig.PositionRangeMaxY);
         }
     }
 }

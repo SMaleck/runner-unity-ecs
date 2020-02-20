@@ -16,7 +16,6 @@ namespace Source.Features.EntitySpawning.SpawningControllers
         private readonly FloorTileEntityFactory _floorTileEntityFactory;
         private readonly FloorTileEntityConfig _floorTileEntityConfig;
         private readonly ScreenSizeModel _screenSizeModel;
-        private readonly ScreenSizeController _screenSizeController;
 
         private readonly Vector3 _floorTileSize;
         private float FloorTileHalfSizeX => _floorTileSize.x / 2f;
@@ -28,13 +27,11 @@ namespace Source.Features.EntitySpawning.SpawningControllers
         public FloorSpawningController(
             FloorTileEntityFactory floorTileEntityFactory,
             FloorTileEntityConfig floorTileEntityConfig,
-            ScreenSizeModel screenSizeModel,
-            ScreenSizeController screenSizeController)
+            ScreenSizeModel screenSizeModel)
         {
             _floorTileEntityFactory = floorTileEntityFactory;
             _floorTileEntityConfig = floorTileEntityConfig;
             _screenSizeModel = screenSizeModel;
-            _screenSizeController = screenSizeController;
 
             _floorTileSize = _floorTileEntityConfig
                 .EntityMesh
@@ -72,9 +69,12 @@ namespace Source.Features.EntitySpawning.SpawningControllers
 
         private void FillFloor()
         {
-            var startPosition = _screenSizeController.GetBottomLeftCorner(
-                FloorTileHalfSizeX,
-                FloorTileHalfSizeY);
+            var leftBottomCorner = _screenSizeModel.GetCurrentLeftBottomCorner();
+
+            var startPosition = new float3(
+                leftBottomCorner.x + FloorTileHalfSizeX,
+                leftBottomCorner.y + FloorTileHalfSizeY,
+                0);
 
             var minimumTileCount = Math.Ceiling(_screenSizeModel.WidthUnits / _floorTileSize.x);
             var paddedTileCount = (int)minimumTileCount + 1;

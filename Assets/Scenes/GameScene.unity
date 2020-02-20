@@ -121,12 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!20 &519420031 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 5784433643296683162, guid: c305ca6d6a86f914d810a79cc991a805,
-    type: 3}
-  m_PrefabInstance: {fileID: 5784433643060579557}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &770712266
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1937c74c470cae045a46905337b3f65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneCamera: {fileID: 519420031}
+  _sceneCamera: {fileID: 5784433643060579559}
 --- !u!114 &864319238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -431,3 +425,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c305ca6d6a86f914d810a79cc991a805, type: 3}
+--- !u!1 &5784433643060579558 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5784433643296683161, guid: c305ca6d6a86f914d810a79cc991a805,
+    type: 3}
+  m_PrefabInstance: {fileID: 5784433643060579557}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5784433643060579559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5784433643060579558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198c0c9bcf255b54f907d8ccfab08143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 5784433643060579560}
+--- !u!20 &5784433643060579560 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5784433643296683162, guid: c305ca6d6a86f914d810a79cc991a805,
+    type: 3}
+  m_PrefabInstance: {fileID: 5784433643060579557}
+  m_PrefabAsset: {fileID: 0}

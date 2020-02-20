@@ -13,16 +13,16 @@ namespace Source.Features.EntitySpawning.SpawningControllers
     {
         private readonly ObstacleEntityFactory _obstacleEntityFactory;
         private readonly ObstacleEntityConfig _obstacleEntityConfig;
-        private readonly ScreenSizeController _screenSizeController;
+        private readonly ScreenSizeModel _screenSizeModel;
 
         public ObstacleSpawningController(
             ObstacleEntityFactory obstacleEntityFactory,
             ObstacleEntityConfig obstacleEntityConfig,
-            ScreenSizeController screenSizeController)
+            ScreenSizeModel screenSizeModel)
         {
             _obstacleEntityFactory = obstacleEntityFactory;
             _obstacleEntityConfig = obstacleEntityConfig;
-            _screenSizeController = screenSizeController;
+            _screenSizeModel = screenSizeModel;
         }
 
         public void Initialize()
@@ -34,11 +34,13 @@ namespace Source.Features.EntitySpawning.SpawningControllers
 
         private void Spawn()
         {
-            var spawnPosition = _screenSizeController.GetBottomRightCorner(
-                1,
-                1.5f);
+            var rightBottomCorner = _screenSizeModel.GetCurrentRightBottomCorner();
+            var spawnPosition = new float3(
+                rightBottomCorner.x + 1,
+                rightBottomCorner.y + 1.5f,
+                0);
 
-            _obstacleEntityFactory.CreateEntityAt(new float3(spawnPosition.x, spawnPosition.y, 0));
+            _obstacleEntityFactory.CreateEntityAt(spawnPosition);
         }
     }
 }

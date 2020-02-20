@@ -1,44 +1,69 @@
-﻿using UGF.Util.UniRx;
+﻿using System;
+using Source.Features.Camera;
+using UGF.Util.UniRx;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Source.Features.ScreenSize
 {
     public class ScreenSizeModel : AbstractDisposable
     {
-        private readonly UnityEngine.Camera _sceneCamera;
+        private readonly GameCamera _sceneCamera;
 
-        public float WidthUnits { get; private set; }
-        public float HeightUnits { get; private set; }
+        public float WidthUnits => _sceneCamera.WidthUnits;
+        public float HeightUnits => _sceneCamera.HeightUnits;
 
         public float WidthExtendUnits => WidthUnits / 2;
         public float HeightExtendUnits => HeightUnits / 2;
 
-        public ScreenSizeModel(UnityEngine.Camera sceneCamera)
+        private Vector2 CameraPosition => _sceneCamera.transform.position;
+
+        public ScreenSizeModel(GameCamera sceneCamera)
         {
             _sceneCamera = sceneCamera;
+        }
 
-            if (sceneCamera.orthographic)
+        public float2 GetCurrentEdge(ScreenSide screenSide)
+        {
+            switch(screenSide)
             {
-                CalculateOrthographicBased();
-            }
-            else
-            {
-                CalculatePerspectiveBased();
+                case ScreenSide.Top:
+                    return new float2(
+                        0,
+                        CameraPosition.y + HeightExtendUnits);
+
+                case ScreenSide.Bottom:
+                    return new float2(
+                        0,
+                        CameraPosition.y - HeightExtendUnits);
+
+                case ScreenSide.Left:
+                    return new float2(
+                        CameraPosition.x - WidthExtendUnits,
+                        0);
+
+                case ScreenSide.Right:
+                    return new float2(
+                        CameraPosition.x + WidthExtendUnits,
+                        0);
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(screenSide), screenSide, null);
             }
         }
 
-        private void CalculateOrthographicBased()
+        public float2 GetCurrentRightBottomCorner()
         {
-            HeightUnits = 2f * _sceneCamera.orthographicSize;
-            WidthUnits = HeightUnits * _sceneCamera.aspect;
+            return new float2(
+                CameraPosition.x + WidthExtendUnits,
+                CameraPosition.y -HeightExtendUnits);
         }
 
-        private void CalculatePerspectiveBased()
+        public float2 GetCurrentLeftBottomCorner()
         {
-            var distance = Mathf.Abs(_sceneCamera.transform.position.z);
-
-            HeightUnits = 2.0f * distance * Mathf.Tan(_sceneCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
-            WidthUnits = HeightUnits * _sceneCamera.aspect;
+            return new float2(
+                CameraPosition.x - WidthExtendUnits,
+                CameraPosition.y - HeightExtendUnits);
         }
     }
 }

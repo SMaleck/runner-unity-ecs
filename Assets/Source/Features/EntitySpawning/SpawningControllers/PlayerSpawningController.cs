@@ -13,18 +13,18 @@ namespace Source.Features.EntitySpawning.SpawningControllers
         private readonly PlayerEntityFactory _playerEntityFactory;
         private readonly PlayerEntityConfig _playerEntityConfig;
         private readonly FloorTileEntityConfig _floorTileEntityConfig;
-        private readonly ScreenSizeController _screenSizeController;
+        private readonly ScreenSizeModel _screenSizeModel;
 
         public PlayerSpawningController(
             PlayerEntityFactory playerEntityFactory,
             PlayerEntityConfig playerEntityConfig,
             FloorTileEntityConfig floorTileEntityConfig,
-            ScreenSizeController screenSizeController)
+            ScreenSizeModel screenSizeModel)
         {
             _playerEntityFactory = playerEntityFactory;
             _playerEntityConfig = playerEntityConfig;
             _floorTileEntityConfig = floorTileEntityConfig;
-            _screenSizeController = screenSizeController;
+            _screenSizeModel = screenSizeModel;
         }
 
         public void Initialize()
@@ -42,7 +42,7 @@ namespace Source.Features.EntitySpawning.SpawningControllers
                 .bounds
                 .size;
             
-            var bottomLeftCorner = _screenSizeController.GetBottomLeftCorner();
+            var bottomLeftCorner = _screenSizeModel.GetCurrentLeftBottomCorner();
 
             var spawnPosition = new float3(
                 bottomLeftCorner.x + playerSize.x,

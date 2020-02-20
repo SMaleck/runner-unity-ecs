@@ -15,7 +15,7 @@ namespace Source.Installation.SceneInstallers
 {
     public class GameSceneInstaller : AbstractSceneInstaller
     {
-        [SerializeField] private UnityEngine.Camera _sceneCamera;
+        [SerializeField] private GameCamera _sceneCamera;
 
         protected override void InstallSceneBindings()
         {

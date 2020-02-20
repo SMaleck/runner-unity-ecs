@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _viewPrefabConfig: {fileID: 11400000, guid: 4b192d77c6fb58f44ad949ee8db46eed, type: 2}
   _audioClipsConfig: {fileID: 11400000, guid: cb908933b822f0a4c8fc7f8e41cbf078, type: 2}
+  _gameCameraConfig: {fileID: 11400000, guid: 2a500ab386a5cca47a5c98432a0fa355, type: 2}
   _entitySpawningConfig: {fileID: 11400000, guid: c375a705fc3e2b24da580daf26e2b842,
     type: 2}

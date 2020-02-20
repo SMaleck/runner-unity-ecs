@@ -1,4 +1,5 @@
-﻿using Source.Features.DataBridge;
+﻿using Source.Features.Camera.Config;
+using Source.Features.DataBridge;
 using UGF.Util.UniRx;
 using UniRx;
 using Unity.Mathematics;
@@ -9,11 +10,15 @@ namespace Source.Features.Camera
     // ToDo Improve tracking, slightly out of sync. Create System if possible
     public class GameCameraController : AbstractDisposable
     {
-        private readonly UnityEngine.Camera _camera;
+        private readonly GameCamera _gameCamera;
+        private readonly GameCameraConfig _gameCameraConfig;
 
-        public GameCameraController(UnityEngine.Camera camera)
+        public GameCameraController(
+            GameCamera gameCamera,
+            GameCameraConfig gameCameraConfig)
         {
-            _camera = camera;
+            _gameCamera = gameCamera;
+            _gameCameraConfig = gameCameraConfig;
 
             Observable.EveryUpdate()
                 .Subscribe(_ => OnUpdate())
@@ -27,12 +32,12 @@ namespace Source.Features.Camera
                 return;
             }
 
-            _camera.transform.position = new Vector3(
-                position.x,
-                _camera.transform.position.y,
-                _camera.transform.position.z);
+            _gameCamera.transform.position = new Vector3(
+                position.x + _gameCameraConfig.FollowOffset.x,
+                _gameCamera.transform.position.y + _gameCameraConfig.FollowOffset.y,
+                _gameCamera.transform.position.z + _gameCameraConfig.FollowOffset.z);
 
-            Blackboard.Set(BlackboardEntryId.CameraPosition, new float3(_camera.transform.position));
+            Blackboard.Set(BlackboardEntryId.CameraPosition, new float3(_gameCamera.transform.position));
         }
     }
 }
