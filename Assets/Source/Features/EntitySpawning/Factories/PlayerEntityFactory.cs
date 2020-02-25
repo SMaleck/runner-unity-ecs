@@ -3,6 +3,7 @@ using Source.Features.EntitySpawning.Config;
 using UniRx;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Rendering;
 using Unity.Transforms;
 
@@ -76,6 +77,12 @@ namespace Source.Features.EntitySpawning.Factories
             {
                 Value = _playerEntityConfig.Health
             });
+
+            var physicsMassComponent = EntityManager.GetComponentData<PhysicsMass>(entity);
+
+            // This is equivalent to the classic FreezeRotation on RigidBody. Setting x,y,z to 0 freezes the respective axis
+            physicsMassComponent.InverseInertia = new float3(0);
+            EntityManager.SetComponentData(entity, physicsMassComponent);
         }
 
         private void SetFloorColliderComponentData(Entity floorColliderEntity, Entity playerEntity)
