@@ -2,12 +2,13 @@
 using Source.Entities.ComponentTags;
 using Source.Features.DataBridge;
 using System;
-using Unity.Collections;
+using Source.Entities.Systems.Barriers;
 using Unity.Entities;
 using Unity.Jobs;
 
 namespace Source.Entities.Systems
 {
+    [UpdateAfter(typeof(CollisionBarrierSystem))]
     public class DamageSystem : JobComponentSystem
     {
         [RequireComponentTag(typeof(PlayerTag))]
@@ -18,6 +19,7 @@ namespace Source.Entities.Systems
                 ref Health health)
             {
                 health.Value = Math.Max(0, health.Value - damageIn.Value);
+                damageIn.Value = 0;
 
                 Blackboard.Set(BlackboardEntryId.PlayerHealth, health.Value);
             }

@@ -1,4 +1,5 @@
 ﻿using Source.Entities.Components;
+using Source.Entities.Systems.Barriers;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Physics;
@@ -7,61 +8,72 @@ using Unity.Physics.Systems;
 namespace Source.Entities.Systems
 {
     [UpdateAfter(typeof(EndFramePhysicsSystem))]
+    [UpdateBefore(typeof(CollisionBarrierSystem))]
     public class CollisionEventSystem : JobComponentSystem
     {
         private BuildPhysicsWorld _buildPhysicsWorldSystem;
         private StepPhysicsWorld _stepPhysicsWorld;
+        private CollisionBarrierSystem _collisionBarrierSystem;
 
         protected override void OnCreate()
         {
             _buildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
             _stepPhysicsWorld = World.GetOrCreateSystem<StepPhysicsWorld>();
+            _collisionBarrierSystem = World.GetOrCreateSystem<CollisionBarrierSystem>();
         }
 
         struct SystemJob : ITriggerEventsJob
         {
+            public EntityCommandBuffer.Concurrent CommandBuffer;
+            public ComponentDataFromEntity<DamageIn> DamageReceivers;
+            public ComponentDataFromEntity<DamageOut> DamageDealers;
+
             public void Execute(TriggerEvent triggerEvent)
             {
-                if (!TryGetComponent(triggerEvent, out Entity damageReceivingEntity, out DamageIn damageIn))
+                if (!TryGetEntity(triggerEvent, DamageReceivers, out Entity damageReceivingEntity, out DamageIn damageIn))
                 {
                     return;
                 }
 
-                if (!TryGetComponent(triggerEvent, out Entity damageDealingEntity, out DamageOut damageOut))
+                if (!TryGetEntity(triggerEvent, DamageDealers, out Entity damageDealingEntity, out DamageOut damageOut))
                 {
                     return;
                 }
 
-                var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+                CommandBuffer.RemoveComponent(
+                    damageDealingEntity.Index,
+                    damageDealingEntity,
+                    typeof(DamageOut));
 
-                entityManager.RemoveComponent<DamageOut>(damageDealingEntity);
-                
-                entityManager.SetComponentData(damageReceivingEntity, new DamageIn
-                {
-                    Value = damageIn.Value + damageOut.Value
-                });
+                CommandBuffer.SetComponent(
+                    damageReceivingEntity.Index,
+                    damageReceivingEntity,
+                    new DamageIn
+                    {
+                        Value = damageIn.Value + damageOut.Value
+                    });
             }
 
-            private bool TryGetComponent<T>(
+            private bool TryGetEntity<T>(
                 TriggerEvent triggerEvent,
+                ComponentDataFromEntity<T> componentData,
                 out Entity entity,
-                out T componentData) where T : struct, IComponentData
+                out T component) where T : struct, IComponentData
             {
                 entity = default;
-                componentData = default;
+                component = default;
 
-                var entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
-
-                if (entityManager.HasComponent<T>(triggerEvent.Entities.EntityA))
+                if (componentData.Exists(triggerEvent.Entities.EntityA))
                 {
                     entity = triggerEvent.Entities.EntityA;
-                    componentData = entityManager.GetComponentData<T>(triggerEvent.Entities.EntityA);
+                    component = componentData[entity];
                     return true;
                 }
-                if (entityManager.HasComponent<T>(triggerEvent.Entities.EntityB))
+
+                if (componentData.Exists(triggerEvent.Entities.EntityB))
                 {
                     entity = triggerEvent.Entities.EntityB;
-                    componentData = entityManager.GetComponentData<T>(triggerEvent.Entities.EntityB);
+                    component = componentData[entity];
                     return true;
                 }
 
@@ -71,12 +83,24 @@ namespace Source.Entities.Systems
 
         protected override JobHandle OnUpdate(JobHandle inputDependencies)
         {
-            var systemJob = new SystemJob();
+            var damageReceivers = GetComponentDataFromEntity<DamageIn>();
+            var damageDealers = GetComponentDataFromEntity<DamageOut>();
 
-            return systemJob.Schedule(
+            var systemJob = new SystemJob()
+            {
+                CommandBuffer = _collisionBarrierSystem.CreateCommandBuffer().ToConcurrent(),
+                DamageReceivers = damageReceivers,
+                DamageDealers = damageDealers
+            };
+
+            inputDependencies = systemJob.Schedule(
                 _stepPhysicsWorld.Simulation,
                 ref _buildPhysicsWorldSystem.PhysicsWorld,
                 inputDependencies);
+
+            _collisionBarrierSystem.AddJobHandleForProducer(inputDependencies);
+
+            return inputDependencies;
         }
     }
 }
