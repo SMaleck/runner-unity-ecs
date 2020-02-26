@@ -20,6 +20,7 @@ namespace Source.Features.EntitySpawning.Converters
             entityManager.AddComponent<TravelStats>(entity);
             entityManager.AddComponent<JumpIntent>(entity);
             entityManager.AddComponent<Health>(entity);
+            entityManager.AddComponent<DamageIn>(entity);
         }
     }
 }

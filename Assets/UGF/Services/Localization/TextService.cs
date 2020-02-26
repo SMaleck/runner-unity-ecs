@@ -1,4 +1,6 @@
-﻿namespace UGF.Services.Localization
+﻿using System;
+
+namespace UGF.Services.Localization
 {
     public static class TextService
     {
@@ -22,6 +24,16 @@
         public static string Restart()
         {
             return TextRepo.GetText(TextKey.Restart);
+        }
+
+        public static string AmountMeters(float amount)
+        {
+            return AmountMeters((int)Math.Round(amount));
+        }
+
+        public static string AmountMeters(int amount)
+        {
+            return $"{amount}m";
         }
     }
 }

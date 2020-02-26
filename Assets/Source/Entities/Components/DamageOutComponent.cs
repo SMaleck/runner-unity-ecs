@@ -2,12 +2,12 @@
 
 namespace Source.Entities.Components
 {
-    public struct Damage : IComponentData
+    public struct DamageOut : IComponentData
     {
         public int Value;
     }
 
-    public class DamageComponent : ComponentDataProxy<Damage>
+    public class DamageOutComponent : ComponentDataProxy<DamageOut>
     {
     }
 }

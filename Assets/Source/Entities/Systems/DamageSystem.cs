@@ -1,25 +1,25 @@
 ﻿using Source.Entities.Components;
 using Source.Entities.ComponentTags;
-using Unity.Burst;
+using Source.Features.DataBridge;
+using System;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 
 namespace Source.Entities.Systems
 {
-    [BurstCompile]
-    public class DeathSystem : JobComponentSystem
+    public class DamageSystem : JobComponentSystem
     {
         [RequireComponentTag(typeof(PlayerTag))]
-        private struct SystemJob : IJobForEach<Health>
+        private struct SystemJob : IJobForEach<DamageIn, Health>
         {
-            public void Execute([ReadOnly] ref Health health)
+            public void Execute(
+                ref DamageIn damageIn,
+                ref Health health)
             {
-                if (health.Value <= 0)
-                {
-                    // ToDo [ECS] Communicate death back to Mono Layer
-                    UGF.Logger.Warn($"IS DEAD!");
-                }
+                health.Value = Math.Max(0, health.Value - damageIn.Value);
+
+                Blackboard.Set(BlackboardEntryId.PlayerHealth, health.Value);
             }
         }
 

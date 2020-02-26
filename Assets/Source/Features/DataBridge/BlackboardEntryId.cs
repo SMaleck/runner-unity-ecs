@@ -6,6 +6,7 @@
         PlayerPosition = 1,
         PlayerDistanceTraveled = 2,
         CameraPosition = 3,
-        CameraWidthExtendUnits = 4
+        CameraWidthExtendUnits = 4,
+        PlayerHealth = 5
     }
 }

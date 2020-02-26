@@ -10,7 +10,7 @@ namespace Source.Features.EntitySpawning.Converters
 
         public void Convert(Entity entity, EntityManager entityManager, GameObjectConversionSystem conversionSystem)
         {
-            entityManager.AddComponentData(entity, new Damage
+            entityManager.AddComponentData(entity, new DamageOut
             {
                 Value = _damage
             });

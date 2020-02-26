@@ -1,4 +1,4 @@
-﻿using Source.Features.Hud;
+﻿using Source.Features.UiHud;
 using Source.Features.UiScreens;
 using UnityEngine;
 

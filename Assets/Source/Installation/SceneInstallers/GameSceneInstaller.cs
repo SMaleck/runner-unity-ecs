@@ -3,8 +3,9 @@ using Source.Features.DataBridge;
 using Source.Features.EntitySpawning;
 using Source.Features.EntitySpawning.Factories;
 using Source.Features.EntitySpawning.SpawningControllers;
-using Source.Features.Hud;
+using Source.Features.PlayerStats;
 using Source.Features.ScreenSize;
+using Source.Features.UiHud;
 using Source.Initialization;
 using UGF.Installation;
 using UGF.Util;
@@ -23,28 +24,31 @@ namespace Source.Installation.SceneInstallers
 
             Container.BindInstance(_sceneCamera);
 
-            Container.BindInterfacesAndSelfTo<GameSceneInitializer>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameSceneInitializer>().AsSingleNonLazy();
 
-            Container.BindInterfacesAndSelfTo<ClosableViewMediator>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<ClosableViewMediator>().AsSingleNonLazy();
             Container.BindFactory<IClosableView, ClosableViewController, ClosableViewController.Factory>();
 
             Container.BindPrefabFactory<HudView, HudView.Factory>();
 
-            Container.BindInterfacesAndSelfTo<GameCameraController>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<ScreenSizeModel>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameCameraController>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<ScreenSizeModel>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingleNonLazy();
 
             // ToDo [ECS] Should this be bound here or on the Project level? How to handle EcsCleanupController if Project Level?
-            Container.BindInterfacesAndSelfTo<PlayerEntityFactory>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<FloorTileEntityFactory>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<ObstacleEntityFactory>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<CloudEntityFactory>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerEntityFactory>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<FloorTileEntityFactory>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<ObstacleEntityFactory>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<CloudEntityFactory>().AsSingleNonLazy();
 
-            Container.BindInterfacesAndSelfTo<EcsCleanupController>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<PlayerSpawningController>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<FloorSpawningController>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<ObstacleSpawningController>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<CloudSpawningController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<EcsCleanupController>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerSpawningController>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<FloorSpawningController>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<ObstacleSpawningController>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<CloudSpawningController>().AsSingleNonLazy();
+
+            Container.BindInterfacesAndSelfTo<PlayerStatsModel>().AsSingleNonLazy();
+            Container.BindInterfacesAndSelfTo<PlayerStatsController>().AsSingleNonLazy();
         }
     }
 }
