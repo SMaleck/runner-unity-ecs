@@ -5,13 +5,13 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 
-namespace Source.Entities.Systems
+namespace Source.Entities.Systems.Bridges
 {
     [UpdateAfter(typeof(TravelStatsSystem))]
     public class TravelStatsBridgeSystem : JobComponentSystem
     {
         [RequireComponentTag(typeof(PlayerTag))]
-        private struct TravelStatsBridgeSystemJob : IJobForEach<TravelStats>
+        private struct SystemJob : IJobForEach<TravelStats>
         {
             public void Execute([ReadOnly] ref TravelStats travelStats)
             {
@@ -22,8 +22,8 @@ namespace Source.Entities.Systems
 
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-            var job = new TravelStatsBridgeSystemJob();
-            return job.Schedule(this, inputDeps);
+            return new SystemJob()
+                .Schedule(this, inputDeps);
         }
     }
 }

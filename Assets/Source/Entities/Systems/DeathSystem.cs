@@ -1,32 +1,30 @@
 ﻿using Source.Entities.Components;
 using Source.Entities.ComponentTags;
 using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
 
 namespace Source.Entities.Systems
 {
     [BurstCompile]
-    public class DeathSystem : JobComponentSystem
+    [UpdateAfter(typeof(DamageSystem))]
+    public class DeathSystem : ComponentSystem
     {
-        [RequireComponentTag(typeof(PlayerTag))]
-        private struct SystemJob : IJobForEach<Health>
+        protected override void OnUpdate()
         {
-            public void Execute([ReadOnly] ref Health health)
+            Entities.ForEach((
+                Entity entity,
+                ref PlayerTag playerTag,
+                ref Health health,
+                ref InputDriverTag inputDriverTag) =>
             {
-                if (health.Value <= 0)
+                if (health.Value > 0)
                 {
-                    // ToDo [ECS] Communicate death back to Mono Layer
-                    UGF.Logger.Warn($"IS DEAD!");
+                    return;
                 }
-            }
-        }
 
-        protected override JobHandle OnUpdate(JobHandle inputDeps)
-        {
-            var job = new SystemJob();
-            return job.Schedule(this, inputDeps);
+                EntityManager.RemoveComponent(entity, typeof(MoveSpeed));
+                EntityManager.RemoveComponent(entity, typeof(InputDriverTag));
+            });
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using Source.Entities.Components;
 using Source.Entities.ComponentTags;
-using Source.Features.DataBridge;
-using System;
 using Source.Entities.Systems.Barriers;
+using System;
+using Unity.Burst;
 using Unity.Entities;
 using Unity.Jobs;
 
 namespace Source.Entities.Systems
 {
+    [BurstCompile]
     [UpdateAfter(typeof(CollisionBarrierSystem))]
     public class DamageSystem : JobComponentSystem
     {
@@ -20,15 +21,13 @@ namespace Source.Entities.Systems
             {
                 health.Value = Math.Max(0, health.Value - damageIn.Value);
                 damageIn.Value = 0;
-
-                Blackboard.Set(BlackboardEntryId.PlayerHealth, health.Value);
             }
         }
 
         protected override JobHandle OnUpdate(JobHandle inputDeps)
         {
-            var job = new SystemJob();
-            return job.Schedule(this, inputDeps);
+            return new SystemJob()
+                .Schedule(this, inputDeps);
         }
     }
 }
