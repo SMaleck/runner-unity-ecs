@@ -16,3 +16,5 @@ MonoBehaviour:
     type: 3}
   _hudViewPrefab: {fileID: 4113682688047045779, guid: 048f467a88875b048af3ac6645c725fe,
     type: 3}
+  _runEndViewPrefab: {fileID: 8976038104195148178, guid: 86d8041b42cb2fd4e8da6932a2c7746d,
+    type: 3}

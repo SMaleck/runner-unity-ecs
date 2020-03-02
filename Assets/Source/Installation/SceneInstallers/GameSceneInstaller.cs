@@ -4,6 +4,7 @@ using Source.Features.EntitySpawning;
 using Source.Features.EntitySpawning.Factories;
 using Source.Features.EntitySpawning.SpawningControllers;
 using Source.Features.PlayerStats;
+using Source.Features.RunEnd;
 using Source.Features.ScreenSize;
 using Source.Features.UiHud;
 using Source.Initialization;
@@ -30,11 +31,13 @@ namespace Source.Installation.SceneInstallers
             Container.BindFactory<IClosableView, ClosableViewController, ClosableViewController.Factory>();
 
             Container.BindPrefabFactory<HudView, HudView.Factory>();
-
+            Container.BindPrefabFactory<RunEndView, RunEndView.Factory>();
+            Container.BindInterfacesAndSelfTo<RunEndController>().AsSingleNonLazy();
+            
             Container.BindInterfacesAndSelfTo<GameCameraController>().AsSingleNonLazy();
             Container.BindInterfacesAndSelfTo<ScreenSizeModel>().AsSingleNonLazy();
             Container.BindInterfacesAndSelfTo<ScreenSizeController>().AsSingleNonLazy();
-
+            
             // ToDo [ECS] Should this be bound here or on the Project level? How to handle EcsCleanupController if Project Level?
             Container.BindInterfacesAndSelfTo<PlayerEntityFactory>().AsSingleNonLazy();
             Container.BindInterfacesAndSelfTo<FloorTileEntityFactory>().AsSingleNonLazy();

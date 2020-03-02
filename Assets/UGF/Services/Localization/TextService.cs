@@ -35,5 +35,20 @@ namespace UGF.Services.Localization
         {
             return $"{amount}m";
         }
+
+        public static string YouDied()
+        {
+            return TextRepo.GetText(TextKey.YouDied);
+        }
+
+        public static string Distance()
+        {
+            return TextRepo.GetText(TextKey.Distance);
+        }
+        
+        public static string BestDistance()
+        {
+            return TextRepo.GetText(TextKey.BestDistance);
+        }
     }
 }

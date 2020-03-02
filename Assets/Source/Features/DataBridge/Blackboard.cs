@@ -6,6 +6,10 @@ using UGF.Util;
 
 namespace Source.Features.DataBridge
 {
+    /// <summary>
+    /// An ugly crutch to marshal data back to the mono space, a proper service locator pattern might be better,
+    /// but this was a quick & easy solution for this example project
+    /// </summary>
     public static class Blackboard
     {
         private static readonly Dictionary<BlackboardEntryId, object> BlackboardStore = new Dictionary<BlackboardEntryId, object>();

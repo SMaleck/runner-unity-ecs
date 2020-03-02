@@ -1,7 +1,8 @@
 ﻿namespace UGF.Views.Mediation
 {
+    // ToDo UGF this is project specific
     public enum ClosableViewType
     {
-        HelloWorld = 0
+        RunEnd = 0
     }
 }

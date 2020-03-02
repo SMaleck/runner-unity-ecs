@@ -1,4 +1,5 @@
-﻿using Source.Features.UiHud;
+﻿using Source.Features.RunEnd;
+using Source.Features.UiHud;
 using Source.Features.UiScreens;
 using UnityEngine;
 
@@ -12,5 +13,8 @@ namespace Source.Installation.Config
 
         [SerializeField] private HudView _hudViewPrefab;
         public HudView HudViewPrefab => _hudViewPrefab;
+        
+        [SerializeField] private RunEndView _runEndViewPrefab;
+        public RunEndView RunEndViewPrefab => _runEndViewPrefab;
     }
 }

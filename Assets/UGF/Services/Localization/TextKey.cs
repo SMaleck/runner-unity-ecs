@@ -4,6 +4,9 @@
     {
         ApplicationName,
         Play,
-        Restart
+        Restart,
+        YouDied,
+        Distance,
+        BestDistance
     }
 }

@@ -59,14 +59,20 @@ namespace UGF.Services.Localization
         {
             { TextKey.ApplicationName, "Runner in Unity ECS"},
             { TextKey.Play, "Play!"},
-            { TextKey.Restart, "Restart"}
+            { TextKey.Restart, "Restart"},
+            { TextKey.YouDied, "You Died!"},
+            { TextKey.Distance, "Distance traveled:"},
+            { TextKey.BestDistance, "Best distance:"}
         };
 
         private static Dictionary<TextKey, string> _textsDE = new Dictionary<TextKey, string>
         {
             { TextKey.ApplicationName, "Runner in Unity ECS"},
             { TextKey.Play, "Spielen!"},
-            { TextKey.Restart, "Neustart"}
+            { TextKey.Restart, "Neustart"},
+            { TextKey.YouDied, "Gestorben!"},
+            { TextKey.Distance, "Erreichte Distanz:"},
+            { TextKey.BestDistance, "Beste Distanz:"}
         };
     }
 }
