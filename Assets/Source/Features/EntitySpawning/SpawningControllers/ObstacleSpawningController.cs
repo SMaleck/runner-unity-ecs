@@ -37,7 +37,7 @@ namespace Source.Features.EntitySpawning.SpawningControllers
             var rightBottomCorner = _screenSizeModel.GetCurrentRightBottomCorner();
             var spawnPosition = new float3(
                 rightBottomCorner.x + 1,
-                rightBottomCorner.y + 1.5f,
+                _obstacleEntityConfig.SpawnPositionY,
                 0);
 
             _obstacleEntityFactory.CreateEntityAt(spawnPosition);

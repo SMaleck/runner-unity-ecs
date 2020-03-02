@@ -30,9 +30,10 @@ MonoBehaviour:
     - {fileID: 2920947053782229879, guid: 5ef816c5bf7f80149836eae62d42cea6, type: 3}
     - {fileID: 2920947053782229879, guid: 6325aaeb5fac8254193b735a28075430, type: 3}
     _screenOffsetX: 5
-    _positionRangeMinY: -0.3
-    _positionRangeMaxY: 3.8
+    _positionRangeMinY: 1.5
+    _positionRangeMaxY: 2.5
   _obstacleEntityConfig:
+    _spawnPositionY: -0.57
     _prefabs:
     - {fileID: 2920947053782229879, guid: 0ae2b6dae3a035a4a92d63d473777142, type: 3}
     - {fileID: 2920947053782229879, guid: 423a5e0677182aa49871f955398c8dd4, type: 3}

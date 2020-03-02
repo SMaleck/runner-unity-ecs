@@ -34,8 +34,8 @@ namespace Source.Features.Camera
 
             _gameCamera.transform.position = new Vector3(
                 position.x + _gameCameraConfig.FollowOffset.x,
-                _gameCamera.transform.position.y + _gameCameraConfig.FollowOffset.y,
-                _gameCamera.transform.position.z + _gameCameraConfig.FollowOffset.z);
+                _gameCameraConfig.FollowOffset.y,
+                _gameCameraConfig.FollowOffset.z);
 
             Blackboard.Set(BlackboardEntryId.CameraPosition, new float3(_gameCamera.transform.position));
         }
