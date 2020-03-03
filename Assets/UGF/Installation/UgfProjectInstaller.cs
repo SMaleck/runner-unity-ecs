@@ -1,11 +1,9 @@
 ﻿using UGF.Initialization;
 using UGF.Services.Audio;
 using UGF.Services.Audio.Config;
-using UGF.Services.Savegames;
 using UGF.Services.SceneManagement;
 using UGF.Services.SceneManagement.LoadingScreen;
 using UGF.Util;
-using UGF.Util.DataStorageStrategies;
 using Zenject;
 
 namespace UGF.Installation
@@ -18,10 +16,6 @@ namespace UGF.Installation
         {
             Container.BindExecutionOrder<ISceneInitializer>(998);
             Container.BindInterfacesAndSelfTo<UgfProjectInitializer>().AsSingle().NonLazy();
-
-            Container.BindInterfacesAndSelfTo<JsonDataStorageStrategy>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SavegameService>().AsSingle();
-            Container.BindInterfacesAndSelfTo<SavegamePersistenceScheduler>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<SceneManagementService>().AsSingle();
             Container.BindInterfacesAndSelfTo<SceneManagementModel>().AsSingle();

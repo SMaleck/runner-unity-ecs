@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using UGF;
 using UnityEngine;
 
-namespace UGF.Services.Localization
+namespace Source.Services.Localization
 {
     public static class TextRepo
     {

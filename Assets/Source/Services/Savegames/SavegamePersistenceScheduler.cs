@@ -3,7 +3,7 @@ using UGF.Util.UniRx;
 using UniRx;
 using Zenject;
 
-namespace UGF.Services.Savegames
+namespace Source.Services.Savegames
 {
     public class SavegamePersistenceScheduler : AbstractDisposable, IInitializable
     {

@@ -1,7 +1,7 @@
 ﻿using Source.Features.PlayerStats;
+using Source.Services.Localization;
 using Source.Services.SceneTransition;
 using TMPro;
-using UGF.Services.Localization;
 using UGF.Views;
 using UniRx;
 using UnityEngine;

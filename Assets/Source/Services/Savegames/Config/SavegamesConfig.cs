@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using UGF;
+using UnityEngine;
 
-namespace UGF.Services.Savegames.Config
+namespace Source.Services.Savegames.Config
 {
-    [CreateAssetMenu(fileName = nameof(SavegamesConfig), menuName = UgfConstants.UMenuRoot + nameof(SavegamesConfig))]
+    [CreateAssetMenu(fileName = nameof(SavegamesConfig), menuName = Constants.UMenuRoot + nameof(SavegamesConfig))]
     public class SavegamesConfig : ScriptableObject
     {
         [SerializeField] private string _savegameFilename = "player.sav";

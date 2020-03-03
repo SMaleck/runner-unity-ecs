@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UGF.Services.Localization
+namespace Source.Services.Localization
 {
     public static class TextService
     {

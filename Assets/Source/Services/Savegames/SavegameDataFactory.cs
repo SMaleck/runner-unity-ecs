@@ -1,6 +1,6 @@
-﻿using UGF.Services.Savegames.Models;
+﻿using Source.Services.Savegames.Models;
 
-namespace UGF.Services.Savegames
+namespace Source.Services.Savegames
 {
     public static class SavegameDataFactory
     {

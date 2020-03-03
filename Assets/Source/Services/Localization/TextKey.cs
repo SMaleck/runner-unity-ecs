@@ -1,4 +1,4 @@
-﻿namespace UGF.Services.Localization
+﻿namespace Source.Services.Localization
 {
     public enum TextKey
     {

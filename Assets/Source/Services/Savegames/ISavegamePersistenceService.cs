@@ -1,4 +1,4 @@
-﻿namespace UGF.Services.Savegames
+﻿namespace Source.Services.Savegames
 {
     public interface ISavegamePersistenceService
     {
